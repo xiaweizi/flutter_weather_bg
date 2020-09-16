@@ -1,8 +1,7 @@
 name: flutter_weather_bg
-description: A new Flutter plugin.
-version: 0.0.1
-author:
-homepage:
+description: weather bg
+version: 0.0.3
+homepage: https://github.com/xiaweizi/flutter_weather_bg
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

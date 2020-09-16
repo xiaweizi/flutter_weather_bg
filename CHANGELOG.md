@@ -1,3 +1,11 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* 初始项目
+
+## 0.0.2
+
+- 添加测试 widget，测试插件
+
+## 0.0.3
+
+- 更新 readme
