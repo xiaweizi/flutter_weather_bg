@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
+import 'package:flutter_weather_bg/test.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,7 +51,10 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [Text('Running on: $_platformVersion\n'),
+              MyTestWidget()],
+          ),
         ),
       ),
     );
