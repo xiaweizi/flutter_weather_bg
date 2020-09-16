@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="flutter_weather_bg.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/flutter_weather_bg.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="ProjectId" id="1haiCbB5FFoLAfZCuLZkuEenane" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" />
+    <panes>
+      <pane id="ProjectPane">
+        <option name="show-excluded-files" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="ToolWindowManager">
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1600255638270">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom/-1440.180.1440.900/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1600255638270" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1600255638267">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.center/-1440.180.1440.900/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1600255638267" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1600255638265">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.left/-1440.180.1440.900/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1600255638265" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1600255638268">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.right/-1440.180.1440.900/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1600255638268" />
+    <state x="620" y="281" width="680" height="518" key="find.popup" timestamp="1600255672940">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="620" y="281" width="680" height="518" key="find.popup/-1440.180.1440.900/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1600255672940" />
+  </component>
+</project>
