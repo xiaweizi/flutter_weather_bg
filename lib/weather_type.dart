@@ -2,20 +2,20 @@ import 'package:flutter/cupertino.dart';
 
 enum WeatherType {
   sunny,
+  sunnyNight,
   cloudy,
-  overcast,
+  cloudyNight,
   lightRainy,
   middleRainy,
   heavyRainy,
   thunder,
-  hazy, // 霾
-  foggy, // 雾
   lightSnow,
   middleSnow,
   heavySnow,
+  overcast,
+  hazy, // 霾
+  foggy, // 雾
   dusty, // 浮尘
-  sunnyNight,
-  cloudyNight,
 }
 
 class WeatherUtil {

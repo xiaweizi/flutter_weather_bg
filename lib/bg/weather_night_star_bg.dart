@@ -118,6 +118,7 @@ class _StarPainter extends CustomPainter {
     );
     _meteorPaint.shader = gradient;
     canvas.rotate(pi * param.radians);
+    canvas.scale(globalWidthRatio);
     canvas.translate(param.translateX, tan(pi * 0.1) *_meteorWidth + param.translateY);
     canvas.drawRRect(
         RRect.fromLTRBAndCorners(0, 0, _meteorWidth, _meteorHeight,
@@ -161,12 +162,12 @@ class _MeteorParam {
   void reset() {
     translateX = globalWidth + Random().nextDouble() * 20.0 * globalWidth;
     radians = -Random().nextDouble() * 0.07 - 0.05;
-    translateY = Random().nextDouble() * 0.5 * globalHeight;
+    translateY = Random().nextDouble() * 0.5 * globalHeight * globalWidthRatio;
   }
 
   void move() {
     translateX -= 20;
-    if (translateX <= -1.0 * globalWidth) {
+    if (translateX <= -1.0 * globalWidth / globalWidthRatio) {
       reset();
     }
   }
@@ -186,18 +187,18 @@ class _StarParam {
   void reset() {
     alpha = 0;
     double baseScale = index == 0 ? 0.7 : 0.5;
-    scale = Random().nextDouble() * 0.1 + baseScale;
+    scale = (Random().nextDouble() * 0.1 + baseScale)  * globalWidthRatio;
     x = Random().nextDouble() * 1 * globalWidth / scale;
-    y = Random().nextDouble() * 0.3 * globalHeight / scale;
+    y = Random().nextDouble() * 0.3 * globalHeight;
     reverse = false;
   }
 
   void init() {
     alpha = Random().nextDouble();
     double baseScale = index == 0 ? 0.7 : 0.5;
-    scale = Random().nextDouble() * 0.1 + baseScale;
+    scale = (Random().nextDouble() * 0.1 + baseScale)  * globalWidthRatio;
     x = Random().nextDouble() * 1 * globalWidth / scale;
-    y = Random().nextDouble() * 0.3 * globalHeight / scale;
+    y = Random().nextDouble() * 0.3 * globalHeight;
     reverse = false;
   }
 

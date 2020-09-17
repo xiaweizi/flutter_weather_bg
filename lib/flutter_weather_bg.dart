@@ -9,6 +9,7 @@ import 'package:flutter_weather_bg/weather_type.dart';
 
 double globalHeight = 0.0;
 double globalWidth = 0.0;
+double globalWidthRatio = 0.0;
 
 class WeatherBg extends StatefulWidget {
   final WeatherType weatherType;
@@ -16,6 +17,7 @@ class WeatherBg extends StatefulWidget {
   WeatherBg({Key key, this.weatherType, @required double width, @required double height}) : super(key: key){
     globalWidth =  width;
     globalHeight = height;
+    globalWidthRatio = globalWidth / 392.0;
   }
 
   @override
@@ -25,7 +27,7 @@ class WeatherBg extends StatefulWidget {
 class _WeatherBgState extends State<WeatherBg> {
   @override
   Widget build(BuildContext context) {
-    weatherPrint("xiaweizi::width: $globalWidth, height: $globalHeight");
+    weatherPrint("xiaweizi::width: $globalWidth, height: $globalHeight, globalWidthRatio: $globalWidthRatio");
     return Container(
       color: Colors.yellow,
       child: ClipRect(

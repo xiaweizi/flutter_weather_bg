@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'package:flutter_weather_bg/utils/image_utils.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'dart:ui' as ui;
@@ -129,7 +130,7 @@ class RainSnowPainter extends CustomPainter {
           move(element);
           ui.Offset offset = ui.Offset(element.x, element.y);
           canvas.save();
-          canvas.scale(element.scale, element.scale);
+          canvas.scale(element.scale);
           var identity = ColorFilter.matrix(<double>[
             1, 0, 0, 0, 0,
             0, 1, 0, 0, 0,
@@ -247,9 +248,9 @@ class RainSnowParams {
       gapSpeed = 7;
     }
     double random = Random().nextDouble();
-    this.scale = initScale + gapScale * random;
+    this.scale = (initScale + gapScale * random) * globalWidthRatio;
     this.speed = initSpeed + gapSpeed * (1 - random);
     this.alpha = 0.1 + 0.9 * random;
-    x = Random().nextInt(width * 1.2 ~/ scale).toDouble() - width * 0.1 ~/ scale;
+    x = Random().nextInt(width * 1.2 * globalWidthRatio ~/ scale ).toDouble() - width * 0.1 ~/ scale;
   }
 }
