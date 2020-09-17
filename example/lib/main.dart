@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'package:flutter_weather_bg/weather_type.dart';
+import 'package:flutter_weather_bg_example/grid_view.dart';
+import 'package:flutter_weather_bg_example/page_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,11 +26,43 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
+      routes: {
+        "page": (BuildContext context) {
+          return PageViewWidget();
+        },
+        "grid": (BuildContext context) {
+          return GridViewWidget();
+        }
+      },
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Plugin example app'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            FlatButton(
+              child: Text("page"),
+              onPressed: () {
+                Navigator.of(context).pushNamed("page");
+              },
+            ),
+            FlatButton(
+              child: Text("grid"),
+              onPressed: () {
+                Navigator.of(context).pushNamed("grid");
+              },
+            )
+          ],
         ),
-        body: WeatherBg(weatherType: WeatherType.lightRainy, width: 300.0, height: 300.0,),
       ),
     );
   }

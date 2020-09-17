@@ -118,7 +118,7 @@ class BgPainter extends CustomPainter {
     canvas.save();
     final sunScale = 1.2;
     canvas.scale(sunScale, sunScale);
-    canvas.drawImage(image1, Offset(WeatherBg.sWidth.toDouble() - image1.width.toDouble(), -image1.height.toDouble() / 2 / sunScale), _paint);
+    canvas.drawImage(image1, Offset(globalWidth.toDouble() - image1.width.toDouble(), -image1.height.toDouble() / 2 / sunScale), _paint);
     canvas.restore();
 
     canvas.save();

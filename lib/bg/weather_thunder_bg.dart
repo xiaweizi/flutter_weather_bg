@@ -224,8 +224,8 @@ class ThunderParams {
   ThunderParams(this.image);
 
   void reset() {
-    x = Random().nextDouble() * 0.5 * WeatherBg.sWidth -  1 / 3 * imgWidth;
-    y = Random().nextDouble() * -0.05 * WeatherBg.sHeight;
+    x = Random().nextDouble() * 0.5 * globalWidth -  1 / 3 * imgWidth;
+    y = Random().nextDouble() * -0.05 * globalHeight;
     alpha = 0;
   }
 }

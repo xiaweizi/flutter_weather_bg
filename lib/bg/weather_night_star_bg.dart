@@ -159,14 +159,14 @@ class _MeteorParam {
   double translateY;
   double radians;
   void reset() {
-    translateX = WeatherBg.sWidth + Random().nextDouble() * 20.0 * WeatherBg.sWidth;
+    translateX = globalWidth + Random().nextDouble() * 20.0 * globalWidth;
     radians = -Random().nextDouble() * 0.07 - 0.05;
-    translateY = Random().nextDouble() * 0.5 * WeatherBg.sHeight;
+    translateY = Random().nextDouble() * 0.5 * globalHeight;
   }
 
   void move() {
     translateX -= 20;
-    if (translateX <= -1.0 * WeatherBg.sWidth) {
+    if (translateX <= -1.0 * globalWidth) {
       reset();
     }
   }
@@ -187,8 +187,8 @@ class _StarParam {
     alpha = 0;
     double baseScale = index == 0 ? 0.7 : 0.5;
     scale = Random().nextDouble() * 0.1 + baseScale;
-    x = Random().nextDouble() * 1 * WeatherBg.sWidth / scale;
-    y = Random().nextDouble() * 0.3 * WeatherBg.sHeight / scale;
+    x = Random().nextDouble() * 1 * globalWidth / scale;
+    y = Random().nextDouble() * 0.3 * globalHeight / scale;
     reverse = false;
   }
 
@@ -196,8 +196,8 @@ class _StarParam {
     alpha = Random().nextDouble();
     double baseScale = index == 0 ? 0.7 : 0.5;
     scale = Random().nextDouble() * 0.1 + baseScale;
-    x = Random().nextDouble() * 1 * WeatherBg.sWidth / scale;
-    y = Random().nextDouble() * 0.3 * WeatherBg.sHeight / scale;
+    x = Random().nextDouble() * 1 * globalWidth / scale;
+    y = Random().nextDouble() * 0.3 * globalHeight / scale;
     reverse = false;
   }
 
