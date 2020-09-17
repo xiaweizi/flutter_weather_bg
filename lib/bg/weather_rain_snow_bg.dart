@@ -29,12 +29,10 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
 
   Future<void> fetchImages() async {
     weatherPrint("开始获取雨雪图片");
-    var image1 = await ImageUtils.getImage('assets/images/rain1.png');
-    var image2 = await ImageUtils.getImage('assets/images/snow1.png');
-    var image3 = await ImageUtils.getImage('assets/images/thunder.webp');
+    var image1 = await ImageUtils.getImage('images/rain.webp');
+    var image2 = await ImageUtils.getImage('images/snow.webp');
     _images.add(image1);
     _images.add(image2);
-    _images.add(image3);
     weatherPrint("获取雨雪图片成功： ${_images?.length}");
     setState(() {});
   }

@@ -24,11 +24,11 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
 
   Future<void> fetchImages() async {
     weatherPrint("开始获取雷暴图片");
-    var image1 = await ImageUtils.getImage('assets/images/lightning/lightning0.webp');
-    var image2 = await ImageUtils.getImage('assets/images/lightning/lightning1.webp');
-    var image3 = await ImageUtils.getImage('assets/images/lightning/lightning2.webp');
-    var image4 = await ImageUtils.getImage('assets/images/lightning/lightning3.webp');
-    var image5 = await ImageUtils.getImage('assets/images/lightning/lightning4.webp');
+    var image1 = await ImageUtils.getImage('images/lightning0.webp');
+    var image2 = await ImageUtils.getImage('images/lightning1.webp');
+    var image3 = await ImageUtils.getImage('images/lightning2.webp');
+    var image4 = await ImageUtils.getImage('images/lightning3.webp');
+    var image5 = await ImageUtils.getImage('images/lightning4.webp');
     _images.add(image1);
     _images.add(image2);
     _images.add(image3);

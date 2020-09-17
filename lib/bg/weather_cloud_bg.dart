@@ -20,8 +20,8 @@ class _WeatherCloudBgState extends State<WeatherCloudBg> {
 
   Future<void> fetchImages() async {
     weatherPrint("开始获取云层图片");
-    var image1 = await ImageUtils.getImage('assets/images/cloud.webp');
-    var image2 = await ImageUtils.getImage('assets/images/sun.webp');
+    var image1 = await ImageUtils.getImage('images/cloud.webp');
+    var image2 = await ImageUtils.getImage('images/sun.webp');
     _images.add(image1);
     _images.add(image2);
     weatherPrint("获取云层图片成功： ${_images?.length}");

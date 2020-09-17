@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 
 class ImageUtils {
   static Future<ui.Image> getImage(String asset) async {
-    ByteData data = await rootBundle.load(asset);
+    ByteData data = await rootBundle.load("packages/flutter_weather_bg/$asset");
     Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
     FrameInfo fi = await codec.getNextFrame();
     return fi.image;
