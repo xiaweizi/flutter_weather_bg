@@ -45,13 +45,19 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            FlatButton(
+            SizedBox(
+              height: 20,
+            ),
+            RaisedButton(
               child: Text("page"),
               onPressed: () {
                 Navigator.of(context).pushNamed("page");
               },
             ),
-            FlatButton(
+            SizedBox(
+              height: 20,
+            ),
+            RaisedButton(
               child: Text("grid"),
               onPressed: () {
                 Navigator.of(context).pushNamed("grid");

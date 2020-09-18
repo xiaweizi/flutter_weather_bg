@@ -19,6 +19,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
       ),
       body: Container(
         child: PageView.builder(
+          physics: BouncingScrollPhysics(),
           onPageChanged: (index) {
             setState(() {
               _weatherType = WeatherType.values[index];

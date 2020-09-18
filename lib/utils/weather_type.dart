@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 
 enum WeatherType {
-  sunny,
+  heavyRainy,
+  heavySnow,
+  middleSnow,
+  thunder,
+  lightRainy,
+  lightSnow,
   sunnyNight,
+  sunny,
   cloudy,
   cloudyNight,
-  lightRainy,
   middleRainy,
-  heavyRainy,
-  thunder,
-  lightSnow,
-  middleSnow,
-  heavySnow,
   overcast,
   hazy, // 霾
   foggy, // 雾

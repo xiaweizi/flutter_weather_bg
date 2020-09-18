@@ -14,8 +14,13 @@ double globalWidthRatio = 0.0;
 class WeatherBg extends StatefulWidget {
   final WeatherType weatherType;
 
-  WeatherBg({Key key, this.weatherType, @required double width, @required double height}) : super(key: key){
-    globalWidth =  width;
+  WeatherBg(
+      {Key key,
+      this.weatherType,
+      @required double width,
+      @required double height})
+      : super(key: key) {
+    globalWidth = width;
     globalHeight = height;
     globalWidthRatio = globalWidth / 392.0;
   }
@@ -27,7 +32,8 @@ class WeatherBg extends StatefulWidget {
 class _WeatherBgState extends State<WeatherBg> {
   @override
   Widget build(BuildContext context) {
-    weatherPrint("width: $globalWidth, height: $globalHeight, globalWidthRatio: $globalWidthRatio");
+    weatherPrint(
+        "width: $globalWidth, height: $globalHeight, globalWidthRatio: $globalWidthRatio");
     return Container(
       width: globalWidth,
       height: globalHeight,
