@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_bg/bg/weather_bg.dart';
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'dart:ui' as ui;
 
 import 'package:flutter_weather_bg/utils/print_utils.dart';
-import 'package:flutter_weather_bg/weather_type.dart';
+import 'package:flutter_weather_bg/utils/weather_type.dart';
 
+/// 晴晚&流星层
 class WeatherNightStarBg extends StatefulWidget {
   final WeatherType weatherType;
 
@@ -30,6 +32,7 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
     });
   }
 
+  // 初始化星星参数
   void initStarParams() {
     for (int i = 0; i < 100; i++) {
       var index = Random().nextInt(2);
@@ -62,7 +65,8 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
   }
 
   Widget _buildWidget() {
-    weatherPrint("开始构建星星: ${_starParams?.length}, weatherType: ${widget.weatherType}");
+    weatherPrint(
+        "开始构建星星: ${_starParams?.length}, weatherType: ${widget.weatherType}");
     if (_starParams != null &&
         _starParams.isNotEmpty &&
         widget.weatherType == WeatherType.sunnyNight) {
@@ -119,7 +123,8 @@ class _StarPainter extends CustomPainter {
     _meteorPaint.shader = gradient;
     canvas.rotate(pi * param.radians);
     canvas.scale(globalWidthRatio);
-    canvas.translate(param.translateX, tan(pi * 0.1) *_meteorWidth + param.translateY);
+    canvas.translate(
+        param.translateX, tan(pi * 0.1) * _meteorWidth + param.translateY);
     canvas.drawRRect(
         RRect.fromLTRBAndCorners(0, 0, _meteorWidth, _meteorHeight,
             topLeft: _radius,
@@ -137,10 +142,26 @@ class _StarPainter extends CustomPainter {
     }
     canvas.save();
     var identity = ColorFilter.matrix(<double>[
-      1, 0, 0, 0, 0,
-      0, 1, 0, 0, 0,
-      0, 0, 1, 0, 0,
-      0, 0, 0, param.alpha, 0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      param.alpha,
+      0,
     ]);
     _paint.colorFilter = identity;
     canvas.scale(param.scale);
@@ -159,6 +180,7 @@ class _MeteorParam {
   double translateX;
   double translateY;
   double radians;
+
   void reset() {
     translateX = globalWidth + Random().nextDouble() * 20.0 * globalWidth;
     radians = -Random().nextDouble() * 0.07 - 0.05;
@@ -171,7 +193,6 @@ class _MeteorParam {
       reset();
     }
   }
-
 }
 
 class _StarParam {
@@ -187,7 +208,7 @@ class _StarParam {
   void reset() {
     alpha = 0;
     double baseScale = index == 0 ? 0.7 : 0.5;
-    scale = (Random().nextDouble() * 0.1 + baseScale)  * globalWidthRatio;
+    scale = (Random().nextDouble() * 0.1 + baseScale) * globalWidthRatio;
     x = Random().nextDouble() * 1 * globalWidth / scale;
     y = Random().nextDouble() * 0.3 * globalHeight;
     reverse = false;
@@ -196,7 +217,7 @@ class _StarParam {
   void init() {
     alpha = Random().nextDouble();
     double baseScale = index == 0 ? 0.7 : 0.5;
-    scale = (Random().nextDouble() * 0.1 + baseScale)  * globalWidthRatio;
+    scale = (Random().nextDouble() * 0.1 + baseScale) * globalWidthRatio;
     x = Random().nextDouble() * 1 * globalWidth / scale;
     y = Random().nextDouble() * 0.3 * globalHeight;
     reverse = false;

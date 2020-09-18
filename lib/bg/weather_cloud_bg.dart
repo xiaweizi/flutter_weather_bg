@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather_bg/flutter_weather_bg.dart';
+import 'package:flutter_weather_bg/bg/weather_bg.dart';
 import 'dart:ui' as ui;
 
 import 'package:flutter_weather_bg/utils/image_utils.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
-import 'package:flutter_weather_bg/weather_type.dart';
+import 'package:flutter_weather_bg/utils/weather_type.dart';
 
 class WeatherCloudBg extends StatefulWidget {
   final WeatherType weatherType;
@@ -25,9 +25,7 @@ class _WeatherCloudBgState extends State<WeatherCloudBg> {
     _images.add(image1);
     _images.add(image2);
     weatherPrint("获取云层图片成功： ${_images?.length}");
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -64,7 +62,7 @@ class BgPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     weatherPrint("开始绘制云层${images?.length}");
     if (images != null && images.isNotEmpty) {
-      switch(weatherType) {
+      switch (weatherType) {
         case WeatherType.sunny:
           drawSunny(canvas, size);
           break;
@@ -118,26 +116,44 @@ class BgPainter extends CustomPainter {
     canvas.save();
     final sunScale = 1.2 * globalWidthRatio;
     canvas.scale(sunScale, sunScale);
-    canvas.drawImage(image1, Offset(globalWidth.toDouble() - image1.width.toDouble()  * sunScale, -image1.width.toDouble() * sunScale / 2), _paint);
+    var offset = Offset(
+        globalWidth.toDouble() - image1.width.toDouble() * sunScale,
+        -image1.width.toDouble() / 2);
+    canvas.drawImage(image1, offset, _paint);
     canvas.restore();
 
     canvas.save();
     final scale = 0.6 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-100 / scale, 0);
+    ui.Offset offset1 = ui.Offset(-100, -100);
     canvas.scale(scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.restore();
-
   }
 
   void drawCloudy(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      1, 0, 0, 0, 0,
-      0, 1, 0, 0, 0,
-      0, 0, 1, 0, 0,
-      0, 0, 0, 0.9, 0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.9,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
@@ -155,10 +171,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.32, 0, 0, 0, 0,
-      0, 0.39, 0, 0, 0,
-      0, 0, 0.52, 0, 0,
-      0, 0, 0, 0.9, 0,
+      0.32,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.39,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.52,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.9,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
@@ -176,10 +208,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      1, 0, 0, 0, 0,
-      0, 1, 0, 0, 0,
-      0, 0, 1, 0, 0,
-      0, 0, 0, 0.7, 0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.7,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
@@ -197,10 +245,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.45, 0, 0, 0, 0,
-      0, 0.52, 0, 0, 0,
-      0, 0, 0.6, 0, 0,
-      0, 0, 0, 1, 0,
+      0.45,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.52,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.6,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
@@ -218,10 +282,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.67, 0, 0, 0, 0,
-      0, 0.67, 0, 0, 0,
-      0, 0, 0.67, 0, 0,
-      0, 0, 0, 1, 0,
+      0.67,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.67,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.67,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 2.0 * globalWidthRatio;
@@ -235,10 +315,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.75, 0, 0, 0, 0,
-      0, 0.77, 0, 0, 0,
-      0, 0, 0.82, 0, 0,
-      0, 0, 0, 1, 0,
+      0.75,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.77,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.82,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 2.0 * globalWidthRatio;
@@ -252,10 +348,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.62, 0, 0, 0, 0,
-      0, 0.55, 0, 0, 0,
-      0, 0, 0.45, 0, 0,
-      0, 0, 0, 1, 0,
+      0.62,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.55,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.45,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 2.0 * globalWidthRatio;
@@ -269,10 +381,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.19, 0, 0, 0, 0,
-      0, 0.2, 0, 0, 0,
-      0, 0, 0.22, 0, 0,
-      0, 0, 0, 1, 0,
+      0.19,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.22,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
@@ -290,10 +418,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.16, 0, 0, 0, 0,
-      0, 0.22, 0, 0, 0,
-      0, 0, 0.31, 0, 0,
-      0, 0, 0, 1, 0,
+      0.16,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.22,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.31,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
@@ -311,10 +455,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.67, 0, 0, 0, 0,
-      0, 0.75, 0, 0, 0,
-      0, 0, 0.87, 0, 0,
-      0, 0, 0, 1, 0,
+      0.67,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.75,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.87,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
@@ -330,10 +490,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.7, 0, 0, 0, 0,
-      0, 0.77, 0, 0, 0,
-      0, 0, 0.87, 0, 0,
-      0, 0, 0, 1, 0,
+      0.7,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.77,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.87,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
@@ -349,10 +525,26 @@ class BgPainter extends CustomPainter {
     ui.Image image = images[0];
     canvas.save();
     const identity = ColorFilter.matrix(<double>[
-      0.74, 0, 0, 0, 0,
-      0, 0.74, 0, 0, 0,
-      0, 0, 0.81, 0, 0,
-      0, 0, 0, 1, 0,
+      0.74,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.74,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.81,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;

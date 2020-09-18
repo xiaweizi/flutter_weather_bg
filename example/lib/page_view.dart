@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
-import 'package:flutter_weather_bg/weather_type.dart';
 
 class PageViewWidget extends StatefulWidget {
   @override
@@ -18,21 +17,34 @@ class _PageViewWidgetState extends State<PageViewWidget> {
       appBar: AppBar(
         title: Text("$_weatherType"),
       ),
-      body: PageView.builder(
-        onPageChanged: (index) {
-          setState(() {
-            _weatherType = WeatherType.values[index];
-          });
-        },
-        itemBuilder: (BuildContext context, int index) {
-          weatherPrint("pageView: ${MediaQuery.of(context).size}");
-          return WeatherBg(
-            weatherType: WeatherType.values[index],
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-          );
-        },
-        itemCount: WeatherType.values.length,
+      body: Container(
+        child: PageView.builder(
+          onPageChanged: (index) {
+            setState(() {
+              _weatherType = WeatherType.values[index];
+            });
+          },
+          itemBuilder: (BuildContext context, int index) {
+            weatherPrint("pageView: ${MediaQuery.of(context).size}");
+            return Stack(
+              children: [
+                WeatherBg(
+                  weatherType: WeatherType.values[index],
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                ),
+                Center(
+                  child: Text(
+                    WeatherUtil.getWeatherDesc(WeatherType.values[index]),
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                )
+              ],
+            );
+          },
+          itemCount: WeatherType.values.length,
+        ),
       ),
     );
   }

@@ -1,13 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_weather_bg/flutter_weather_bg.dart';
+import 'package:flutter_weather_bg/bg/weather_bg.dart';
 import 'dart:ui' as ui;
 
 import 'package:flutter_weather_bg/utils/image_utils.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
-import 'package:flutter_weather_bg/weather_type.dart';
+import 'package:flutter_weather_bg/utils/weather_type.dart';
 
+/// 雷暴动画层
 class WeatherThunderBg extends StatefulWidget {
   final WeatherType weatherType;
 
@@ -157,6 +158,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
     }
   }
 
+  // 初始化雷暴参数
   void initThunderParams() {
     _thunderParams.clear();
     var param1 = ThunderParams(_images[Random().nextInt(5)]);

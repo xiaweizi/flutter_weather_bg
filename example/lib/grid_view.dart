@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
-import 'package:flutter_weather_bg/weather_type.dart';
 
 class GridViewWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +13,11 @@ class GridViewWidget extends StatelessWidget {
           child: GridView.count(
             crossAxisCount: 2,
             childAspectRatio: 1 / 2,
-            children: WeatherType.values.map((e) => GridItemWidget(weatherType: e,)).toList(),
+            children: WeatherType.values
+                .map((e) => GridItemWidget(
+                      weatherType: e,
+                    ))
+                .toList(),
           ),
         ));
   }
@@ -29,12 +31,21 @@ class GridItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     weatherPrint("grid item size: ${MediaQuery.of(context).size}");
-    return Container(
-      child: WeatherBg(
-        weatherType: weatherType,
-        width: MediaQuery.of(context).size.width / 2,
-        height: MediaQuery.of(context).size.width * 2,
-      ),
+    return Stack(
+      children: [
+        WeatherBg(
+          weatherType: weatherType,
+          width: MediaQuery.of(context).size.width / 2,
+          height: MediaQuery.of(context).size.width * 2,
+        ),
+        Center(
+          child: Text(
+            WeatherUtil.getWeatherDesc(weatherType),
+            style: TextStyle(
+                color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
     );
   }
 }

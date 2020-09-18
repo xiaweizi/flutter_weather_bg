@@ -73,4 +73,39 @@ class WeatherUtil {
     }
   }
 
+  static String getWeatherDesc(WeatherType weatherType) {
+    switch (weatherType) {
+      case WeatherType.sunny:
+      case WeatherType.sunnyNight:
+        return "晴";
+      case WeatherType.cloudy:
+      case WeatherType.cloudyNight:
+        return "多云";
+      case WeatherType.overcast:
+        return "阴";
+      case WeatherType.lightRainy:
+        return "小雨";
+      case WeatherType.middleRainy:
+        return "中雨";
+      case WeatherType.heavyRainy:
+        return "大雨";
+      case WeatherType.thunder:
+        return "雷阵雨";
+      case WeatherType.hazy:
+        return "雾";
+      case WeatherType.foggy:
+        return "霾";
+      case WeatherType.lightSnow:
+        return "小雪";
+      case WeatherType.middleSnow:
+        return "中雪";
+      case WeatherType.heavySnow:
+        return "大雪";
+      case WeatherType.dusty:
+        return "浮尘";
+      default:
+        return "晴";
+    }
+  }
+
 }

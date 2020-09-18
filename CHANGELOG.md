@@ -21,3 +21,7 @@
 ## 1.2.0
 
 - Update Readme
+
+## 1.3.0
+
+- Add comments; change code structure
