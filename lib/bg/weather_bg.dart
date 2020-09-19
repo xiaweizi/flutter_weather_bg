@@ -7,10 +7,16 @@ import 'package:flutter_weather_bg/bg/weather_thunder_bg.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'package:flutter_weather_bg/utils/weather_type.dart';
 
+// 全局的高度
 double globalHeight = 0.0;
+// 全局的宽度
 double globalWidth = 0.0;
+// 根据宽高比，控制图片的缩放比例
 double globalWidthRatio = 0.0;
 
+/// 最核心的类，集合背景&雷&雨雪&晴晚&流星效果
+/// 1. 支持动态切换大小
+/// 2. 支持渐变过度
 class WeatherBg extends StatefulWidget {
   final WeatherType weatherType;
 
@@ -39,6 +45,7 @@ class _WeatherBgState extends State<WeatherBg>
   void didUpdateWidget(WeatherBg oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.weatherType != oldWidget.weatherType) {
+      // 如果类别发生改变，需要 start 渐变动画
       _oldWeatherType = oldWidget.weatherType;
       _controller.reset();
       _controller.forward();

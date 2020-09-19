@@ -49,6 +49,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
     super.initState();
   }
 
+  // 这里用于初始化动画相关，将闪电三个作为一组循环播放展示
   void initAnim() {
     _controller = AnimationController(duration: Duration(seconds: 3), vsync: this);
     _controller.addStatusListener((status) {

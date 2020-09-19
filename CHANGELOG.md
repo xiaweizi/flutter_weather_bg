@@ -25,3 +25,10 @@
 ## 1.3.0
 
 - Add comments; change code structure
+
+## 2.0.0
+
+-Add more detailed comments and instructions
+-Supports over animation when switching weather types
+-Support the display effect of pictures after dynamically changing the width and height
+-Optimized rendering algorithm, more fluent

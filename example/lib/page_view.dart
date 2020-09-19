@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
 
+/// 普通的 ViewPager 展示样式
 class PageViewWidget extends StatefulWidget {
   @override
   _PageViewWidgetState createState() => _PageViewWidgetState();

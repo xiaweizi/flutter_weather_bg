@@ -25,12 +25,15 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       routes: {
         "page": (BuildContext context) {
+          // 普通的侧滑样式
           return PageViewWidget();
         },
         "grid": (BuildContext context) {
+          // 宫格样式
           return GridViewWidget();
         },
         "anim": (BuildContext context) {
+          // 动态切换 宽高样式
           return AnimViewWidget();
         }
       },

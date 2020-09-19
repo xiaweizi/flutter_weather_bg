@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_bg/bg/weather_color_bg.dart';
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
 
+/// 已宫格的形式展示多样的天气效果
+/// 同时，支持切换列数
 class GridViewWidget extends StatefulWidget {
   @override
   _GridViewWidgetState createState() => _GridViewWidgetState();

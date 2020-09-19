@@ -6,6 +6,8 @@ import 'package:flutter_weather_bg/utils/image_utils.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'package:flutter_weather_bg/utils/weather_type.dart';
 
+/// 专门负责绘制背景云层
+/// 会根据不同的天气类型，选择需要绘制的图片类型，并控制缩放、渐变、位移以及染色，最终显示在屏幕上
 class WeatherCloudBg extends StatefulWidget {
   final WeatherType weatherType;
 
