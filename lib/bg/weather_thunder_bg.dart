@@ -18,7 +18,8 @@ class WeatherThunderBg extends StatefulWidget {
   _WeatherCloudBgState createState() => _WeatherCloudBgState();
 }
 
-class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProviderStateMixin{
+class _WeatherCloudBgState extends State<WeatherThunderBg>
+    with SingleTickerProviderStateMixin {
   List<ui.Image> _images = [];
   AnimationController _controller;
   List<ThunderParams> _thunderParams = [];
@@ -51,7 +52,8 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
 
   // 这里用于初始化动画相关，将闪电三个作为一组循环播放展示
   void initAnim() {
-    _controller = AnimationController(duration: Duration(seconds: 3), vsync: this);
+    _controller =
+        AnimationController(duration: Duration(seconds: 3), vsync: this);
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _controller.reset();
@@ -75,7 +77,8 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
     ]).animate(CurvedAnimation(
       parent: _controller,
       curve: Interval(
-        0.0, 0.3,
+        0.0,
+        0.3,
         curve: Curves.ease,
       ),
     ));
@@ -93,7 +96,8 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
     ]).animate(CurvedAnimation(
       parent: _controller,
       curve: Interval(
-        0.2, 0.5,
+        0.2,
+        0.5,
         curve: Curves.ease,
       ),
     ));
@@ -111,7 +115,8 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
     ]).animate(CurvedAnimation(
       parent: _controller,
       curve: Interval(
-        0.6, 0.9,
+        0.6,
+        0.9,
         curve: Curves.ease,
       ),
     ));
@@ -120,30 +125,23 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
       if (_thunderParams != null && _thunderParams.isNotEmpty) {
         _thunderParams[0].alpha = _animation.value;
       }
-      setState(() {
-
-      });
+      setState(() {});
     });
 
     _animation1.addListener(() {
       if (_thunderParams != null && _thunderParams.isNotEmpty) {
         _thunderParams[1].alpha = _animation1.value;
       }
-      setState(() {
-
-      });
+      setState(() {});
     });
 
     _animation2.addListener(() {
       if (_thunderParams != null && _thunderParams.isNotEmpty) {
         _thunderParams[2].alpha = _animation2.value;
       }
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
-
 
   @override
   void dispose() {
@@ -153,8 +151,10 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
 
   Widget _buildWidget() {
     // 这里需要判断天气类别信息，防止不需要绘制的时候绘制，影响性能
-    if (_thunderParams != null && _thunderParams.isNotEmpty && widget.weatherType == WeatherType.thunder) {
-      return  CustomPaint(
+    if (_thunderParams != null &&
+        _thunderParams.isNotEmpty &&
+        widget.weatherType == WeatherType.thunder) {
+      return CustomPaint(
         painter: ThunderPainter(_thunderParams),
       );
     } else {
@@ -205,10 +205,26 @@ class ThunderPainter extends CustomPainter {
     }
     canvas.save();
     var identity = ColorFilter.matrix(<double>[
-      1, 0, 0, 0, 0,
-      0, 1, 0, 0, 0,
-      0, 0, 1, 0, 0,
-      0, 0, 0, params.alpha, 0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      params.alpha,
+      0,
     ]);
     _paint.colorFilter = identity;
     canvas.scale(globalWidthRatio);
@@ -234,7 +250,7 @@ class ThunderParams {
 
   // 重置图片的位置信息
   void reset() {
-    x = Random().nextDouble() * 0.5 * globalWidth -  1 / 3 * imgWidth;
+    x = Random().nextDouble() * 0.5 * globalWidth - 1 / 3 * imgWidth;
     y = Random().nextDouble() * -0.05 * globalHeight;
     alpha = 0;
   }
