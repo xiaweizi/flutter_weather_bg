@@ -50,11 +50,11 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
   }
 
   void initAnim() {
-    _controller = AnimationController(duration: Duration(seconds: 5), vsync: this);
+    _controller = AnimationController(duration: Duration(seconds: 3), vsync: this);
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _controller.reset();
-        Future.delayed(Duration(seconds: 2)).then((value) {
+        Future.delayed(Duration(milliseconds: 50)).then((value) {
           initThunderParams();
           _controller.forward();
         });

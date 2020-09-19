@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_bg_example/anim_view.dart';
 
 import 'package:flutter_weather_bg_example/grid_view.dart';
 import 'package:flutter_weather_bg_example/page_view.dart';
@@ -28,6 +29,9 @@ class _MyAppState extends State<MyApp> {
         },
         "grid": (BuildContext context) {
           return GridViewWidget();
+        },
+        "anim": (BuildContext context) {
+          return AnimViewWidget();
         }
       },
       home: HomePage(),
@@ -61,6 +65,15 @@ class HomePage extends StatelessWidget {
               child: Text("grid"),
               onPressed: () {
                 Navigator.of(context).pushNamed("grid");
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            RaisedButton(
+              child: Text("anim"),
+              onPressed: () {
+                Navigator.of(context).pushNamed("anim");
               },
             )
           ],

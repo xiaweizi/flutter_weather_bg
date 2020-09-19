@@ -29,29 +29,100 @@ class WeatherBg extends StatefulWidget {
   _WeatherBgState createState() => _WeatherBgState();
 }
 
-class _WeatherBgState extends State<WeatherBg> {
+class _WeatherBgState extends State<WeatherBg>
+    with SingleTickerProviderStateMixin {
+  WeatherType _oldWeatherType;
+  double _value = 1;
+  AnimationController _controller;
+
+  @override
+  void didUpdateWidget(WeatherBg oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.weatherType != oldWidget.weatherType) {
+      _oldWeatherType = oldWidget.weatherType;
+      _controller.reset();
+      _controller.forward();
+    }
+  }
+
+  @override
+  void initState() {
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 300), vsync: this);
+    CurvedAnimation(parent: _controller, curve: Curves.linear);
+    _controller.addListener(() {
+      setState(() {
+        _value = _controller.value;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    weatherPrint("xiaweizi::old: $_oldWeatherType, new: ${widget.weatherType}");
     weatherPrint(
         "width: $globalWidth, height: $globalHeight, globalWidthRatio: $globalWidthRatio");
+    if (_oldWeatherType != null && _oldWeatherType != widget.weatherType) {
+      List<Widget> widgets = [];
+        widgets.add(Opacity(
+          opacity: 1 - _value,
+          child: WeatherItemBg(
+            weatherType: _oldWeatherType,
+          ),
+        ));
+        widgets.add(Opacity(
+          opacity: _value,
+          child: WeatherItemBg(
+            weatherType: widget.weatherType,
+          ),
+        ));
+      return Container(
+        width: globalWidth,
+        height: globalHeight,
+        child: Stack(
+          children: widgets,
+        ),
+      );
+    } else {
+      return WeatherItemBg(
+        weatherType: widget.weatherType,
+      );
+    }
+  }
+}
+
+class WeatherItemBg extends StatelessWidget {
+  final WeatherType weatherType;
+
+  WeatherItemBg({Key key, this.weatherType}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: globalWidth,
       height: globalHeight,
       child: ClipRect(
         child: Stack(
           children: [
-            WeatherColorBg(weatherType: widget.weatherType),
+            WeatherColorBg(weatherType: weatherType),
             WeatherCloudBg(
-              weatherType: widget.weatherType,
+              weatherType: weatherType,
             ),
             WeatherRainSnowBg(
-              weatherType: widget.weatherType,
+              weatherType: weatherType,
             ),
             WeatherThunderBg(
-              weatherType: widget.weatherType,
+              weatherType: weatherType,
             ),
             WeatherNightStarBg(
-              weatherType: widget.weatherType,
+              weatherType: weatherType,
             ),
           ],
         ),
