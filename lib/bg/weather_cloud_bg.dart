@@ -37,7 +37,6 @@ class _WeatherCloudBgState extends State<WeatherCloudBg> {
   }
 
   Widget _buildWidget() {
-    weatherPrint("开始构建云层: ${_images?.length}");
     if (_images != null && _images.isNotEmpty) {
       return CustomPaint(
         painter: BgPainter(_images, widget.weatherType),
@@ -62,7 +61,6 @@ class BgPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    weatherPrint("开始绘制云层${images?.length}");
     if (images != null && images.isNotEmpty) {
       switch (weatherType) {
         case WeatherType.sunny:
@@ -159,9 +157,9 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(0, 0);
-    ui.Offset offset2 = ui.Offset(-image.width / 2, 80);
-    ui.Offset offset3 = ui.Offset(100, 100);
+    ui.Offset offset1 = ui.Offset(0, -200);
+    ui.Offset offset2 = ui.Offset(-image.width / 2, -130);
+    ui.Offset offset3 = ui.Offset(100, 0);
     canvas.scale(scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.drawImage(image, offset2, _paint);
@@ -196,9 +194,9 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(0, 0);
-    ui.Offset offset2 = ui.Offset(-image.width / 2, 80);
-    ui.Offset offset3 = ui.Offset(100, 100);
+    ui.Offset offset1 = ui.Offset(0, -200);
+    ui.Offset offset2 = ui.Offset(-image.width / 2, -130);
+    ui.Offset offset3 = ui.Offset(100, 0);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.drawImage(image, offset2, _paint);
@@ -233,9 +231,9 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(0, 0);
-    ui.Offset offset2 = ui.Offset(-image.width / 2, 80);
-    ui.Offset offset3 = ui.Offset(100, 100);
+    ui.Offset offset1 = ui.Offset(0, -200);
+    ui.Offset offset2 = ui.Offset(-image.width / 2, -130);
+    ui.Offset offset3 = ui.Offset(100, 0);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.drawImage(image, offset2, _paint);
@@ -270,9 +268,9 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-380, 0);
+    ui.Offset offset1 = ui.Offset(-380, -150);
     ui.Offset offset2 = ui.Offset(0, -60);
-    ui.Offset offset3 = ui.Offset(0, 110);
+    ui.Offset offset3 = ui.Offset(0, 60);
     canvas.scale(scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.drawImage(image, offset2, _paint);
@@ -307,7 +305,7 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 2.0 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-image.width.toDouble() * 0.5, -100);
+    ui.Offset offset1 = ui.Offset(-image.width.toDouble() * 0.5, -200);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.restore();
@@ -340,7 +338,7 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 2.0 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-image.width.toDouble() * 0.5, -100);
+    ui.Offset offset1 = ui.Offset(-image.width.toDouble() * 0.5, -200);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.restore();
@@ -373,7 +371,7 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 2.0 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-image.width.toDouble() * 0.5, -100);
+    ui.Offset offset1 = ui.Offset(-image.width.toDouble() * 0.5, -200);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.restore();
@@ -406,9 +404,9 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-380, 0);
+    ui.Offset offset1 = ui.Offset(-380, -150);
     ui.Offset offset2 = ui.Offset(0, -60);
-    ui.Offset offset3 = ui.Offset(0, 110);
+    ui.Offset offset3 = ui.Offset(0, 60);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.drawImage(image, offset2, _paint);
@@ -443,9 +441,9 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-380, 0);
+    ui.Offset offset1 = ui.Offset(-380, -150);
     ui.Offset offset2 = ui.Offset(0, -60);
-    ui.Offset offset3 = ui.Offset(0, 110);
+    ui.Offset offset3 = ui.Offset(0, 60);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.drawImage(image, offset2, _paint);
@@ -480,8 +478,8 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-380, 0);
-    ui.Offset offset2 = ui.Offset(0, -60);
+    ui.Offset offset1 = ui.Offset(-380, -100);
+    ui.Offset offset2 = ui.Offset(0, -170);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.drawImage(image, offset2, _paint);
@@ -515,8 +513,8 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-380, 0);
-    ui.Offset offset2 = ui.Offset(0, -60);
+    ui.Offset offset1 = ui.Offset(-380, -100);
+    ui.Offset offset2 = ui.Offset(0, -170);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.drawImage(image, offset2, _paint);
@@ -550,8 +548,8 @@ class BgPainter extends CustomPainter {
     ]);
     _paint.colorFilter = identity;
     final scale = 0.8 * globalWidthRatio;
-    ui.Offset offset1 = ui.Offset(-380, 0);
-    ui.Offset offset2 = ui.Offset(0, -60);
+    ui.Offset offset1 = ui.Offset(-380, -100);
+    ui.Offset offset2 = ui.Offset(0, -170);
     canvas.scale(scale, scale);
     canvas.drawImage(image, offset1, _paint);
     canvas.drawImage(image, offset2, _paint);

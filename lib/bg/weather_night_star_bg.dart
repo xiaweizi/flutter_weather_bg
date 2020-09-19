@@ -65,8 +65,6 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
   }
 
   Widget _buildWidget() {
-    weatherPrint(
-        "开始构建星星: ${_starParams?.length}, weatherType: ${widget.weatherType}");
     if (_starParams != null &&
         _starParams.isNotEmpty &&
         widget.weatherType == WeatherType.sunnyNight) {

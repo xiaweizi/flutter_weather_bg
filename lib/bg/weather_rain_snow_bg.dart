@@ -48,7 +48,8 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
           count = 50;
         } else if (widget.weatherType == WeatherType.middleRainy) {
           count = 80;
-        } else if (widget.weatherType == WeatherType.heavyRainy || widget.weatherType == WeatherType.thunder) {
+        } else if (widget.weatherType == WeatherType.heavyRainy ||
+            widget.weatherType == WeatherType.thunder) {
           count = 160;
         } else if (widget.weatherType == WeatherType.lightSnow) {
           count = 30;
@@ -122,8 +123,6 @@ class RainSnowPainter extends CustomPainter {
   }
 
   void drawRain(Canvas canvas, Size size) {
-    weatherPrint(
-        "开始绘制雨层 image:${_state._images?.length}, rains:${_state._rainSnows?.length}");
     if (_state._images != null && _state._images.length > 1) {
       ui.Image image = _state._images[0];
       if (_state._rainSnows != null && _state._rainSnows.isNotEmpty) {
@@ -133,10 +132,26 @@ class RainSnowPainter extends CustomPainter {
           canvas.save();
           canvas.scale(element.scale);
           var identity = ColorFilter.matrix(<double>[
-            1, 0, 0, 0, 0,
-            0, 1, 0, 0, 0,
-            0, 0, 1, 0, 0,
-            0, 0, 0, element.alpha, 0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            element.alpha,
+            0,
           ]);
           _paint.colorFilter = identity;
           canvas.drawImage(image, offset, _paint);
@@ -149,7 +164,8 @@ class RainSnowPainter extends CustomPainter {
   void move(RainSnowParams params) {
     params.y = params.y + params.speed;
     if (WeatherUtil.isSnow(_state.widget.weatherType)) {
-      double offsetX = sin(params.y / (300 + 50 * params.alpha)) * (1 + 0.5 * params.alpha);
+      double offsetX =
+          sin(params.y / (300 + 50 * params.alpha)) * (1 + 0.5 * params.alpha);
       params.x += offsetX;
     }
     if (params.y > 800 / params.scale) {
@@ -164,8 +180,6 @@ class RainSnowPainter extends CustomPainter {
   }
 
   void drawSnow(Canvas canvas, Size size) {
-    weatherPrint(
-        "开始绘制雪层 image:${_state._images?.length}, rains:${_state._rainSnows?.length}");
     if (_state._images != null && _state._images.length > 1) {
       ui.Image image = _state._images[1];
       if (_state._rainSnows != null && _state._rainSnows.isNotEmpty) {
@@ -175,10 +189,26 @@ class RainSnowPainter extends CustomPainter {
           canvas.save();
           canvas.scale(element.scale, element.scale);
           var identity = ColorFilter.matrix(<double>[
-            1, 0, 0, 0, 0,
-            0, 1, 0, 0, 0,
-            0, 0, 1, 0, 0,
-            0, 0, 0, element.alpha, 0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            element.alpha,
+            0,
           ]);
           _paint.colorFilter = identity;
           canvas.drawImage(image, offset, _paint);
@@ -227,7 +257,8 @@ class RainSnowParams {
       gapScale = 0.12;
       initSpeed = 20;
       gapSpeed = 20;
-    } else if (weatherType == WeatherType.heavyRainy || weatherType == WeatherType.thunder) {
+    } else if (weatherType == WeatherType.heavyRainy ||
+        weatherType == WeatherType.thunder) {
       initScale = 1.09;
       gapScale = 0.15;
       initSpeed = 22;
@@ -252,6 +283,7 @@ class RainSnowParams {
     this.scale = (initScale + gapScale * random) * globalWidthRatio;
     this.speed = initSpeed + gapSpeed * (1 - random);
     this.alpha = 0.1 + 0.9 * random;
-    x = Random().nextInt(width * 1.2 * globalWidthRatio ~/ scale ).toDouble() - width * 0.1 ~/ scale;
+    x = Random().nextInt(width * 1.2 * globalWidthRatio ~/ scale).toDouble() -
+        width * 0.1 ~/ scale;
   }
 }

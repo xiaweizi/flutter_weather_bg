@@ -149,7 +149,6 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
   }
 
   Widget _buildWidget() {
-    weatherPrint("开始构建雷暴: ${_images?.length}");
     if (_thunderParams != null && _thunderParams.isNotEmpty && widget.weatherType == WeatherType.thunder) {
       return  CustomPaint(
         painter: ThunderPainter(_thunderParams),

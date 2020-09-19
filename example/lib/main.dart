@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg_example/anim_view.dart';
 
 import 'package:flutter_weather_bg_example/grid_view.dart';
+import 'package:flutter_weather_bg_example/list_view.dart';
 import 'package:flutter_weather_bg_example/page_view.dart';
 
 void main() {
@@ -14,7 +15,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
@@ -27,6 +27,10 @@ class _MyAppState extends State<MyApp> {
         "page": (BuildContext context) {
           // 普通的侧滑样式
           return PageViewWidget();
+        },
+        "list": (BuildContext context) {
+          // 宫格样式
+          return ListViewWidget();
         },
         "grid": (BuildContext context) {
           // 宫格样式
@@ -59,6 +63,15 @@ class HomePage extends StatelessWidget {
               child: Text("page"),
               onPressed: () {
                 Navigator.of(context).pushNamed("page");
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            RaisedButton(
+              child: Text("list"),
+              onPressed: () {
+                Navigator.of(context).pushNamed("list");
               },
             ),
             SizedBox(

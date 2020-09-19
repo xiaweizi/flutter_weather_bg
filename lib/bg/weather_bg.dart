@@ -78,18 +78,18 @@ class _WeatherBgState extends State<WeatherBg>
         "width: $globalWidth, height: $globalHeight, globalWidthRatio: $globalWidthRatio");
     if (_oldWeatherType != null && _oldWeatherType != widget.weatherType) {
       List<Widget> widgets = [];
-        widgets.add(Opacity(
-          opacity: 1 - _value,
-          child: WeatherItemBg(
-            weatherType: _oldWeatherType,
-          ),
-        ));
-        widgets.add(Opacity(
-          opacity: _value,
-          child: WeatherItemBg(
-            weatherType: widget.weatherType,
-          ),
-        ));
+      widgets.add(Opacity(
+        opacity: 1 - _value,
+        child: WeatherItemBg(
+          weatherType: _oldWeatherType,
+        ),
+      ));
+      widgets.add(Opacity(
+        opacity: _value,
+        child: WeatherItemBg(
+          weatherType: widget.weatherType,
+        ),
+      ));
       return Container(
         width: globalWidth,
         height: globalHeight,
