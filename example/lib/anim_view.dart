@@ -12,6 +12,8 @@ class AnimViewWidget extends StatefulWidget {
 
 class _AnimViewWidgetState extends State<AnimViewWidget> {
   WeatherType _weatherType = WeatherType.sunny;
+  double _width = 100;
+  double _height = 200;
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +22,14 @@ class _AnimViewWidgetState extends State<AnimViewWidget> {
         title: Text("AnimView"),
       ),
       body: Container(
-        alignment: Alignment.center,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               child: WeatherBg(
                 weatherType: _weatherType,
-                width: 250,
-                height: 500,
+                width: _width,
+                height: _height,
               ),
             ),
             SizedBox(
@@ -58,6 +59,36 @@ class _AnimViewWidgetState extends State<AnimViewWidget> {
                   _weatherType = count;
                 });
               },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Slider(
+              min: 100,
+              max: 300,
+              label: "$_width",
+              divisions: 200,
+              onChanged: (value) {
+                setState(() {
+                  _width = value;
+                });
+              },
+              value: _width,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Slider(
+              min: 200,
+              max: 600,
+              label: "$_height",
+              divisions: 400,
+              onChanged: (value) {
+                setState(() {
+                  _height = value;
+                });
+              },
+              value: _height,
             )
           ],
         ),
