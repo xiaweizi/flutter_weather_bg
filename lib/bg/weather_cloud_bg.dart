@@ -6,8 +6,8 @@ import 'package:flutter_weather_bg/utils/image_utils.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'package:flutter_weather_bg/utils/weather_type.dart';
 
-/// 专门负责绘制背景云层
-/// 会根据不同的天气类型，选择需要绘制的图片类型，并控制缩放、渐变、位移以及染色，最终显示在屏幕上
+//// 专门负责绘制背景云层
+//// 会根据不同的天气类型，选择需要绘制的图片类型，并控制缩放、渐变、位移以及染色，最终显示在屏幕上
 class WeatherCloudBg extends StatefulWidget {
   final WeatherType weatherType;
 
@@ -109,6 +109,7 @@ class BgPainter extends CustomPainter {
     }
   }
 
+  /// 绘制阳光
   void drawSunny(Canvas canvas, Size size) {
     ui.Image image = images[0];
     ui.Image image1 = images[1];
@@ -167,6 +168,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制多云的夜晚效果
   void drawCloudyNight(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -204,6 +206,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制阴天
   void drawOvercast(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -241,6 +244,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制小雨效果
   void drawLightRainy(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -278,6 +282,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制霾逻辑
   void drawHazy(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -311,6 +316,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制雾
   void drawFoggy(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -344,6 +350,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制浮尘
   void drawDusty(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -377,6 +384,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制大雨
   void drawHeavyRainy(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -414,6 +422,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制中雨
   void drawMiddleRainy(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -451,6 +460,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制小雪
   void drawLightSnow(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -486,6 +496,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制中雪
   void drawMiddleSnow(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();
@@ -521,6 +532,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制大雪
   void drawHeavySnow(Canvas canvas, Size size) {
     ui.Image image = images[0];
     canvas.save();

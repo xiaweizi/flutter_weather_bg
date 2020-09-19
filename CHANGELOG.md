@@ -1,3 +1,7 @@
+## 2.3.0
+
+- Add comment information
+
 ## 2.2.0
 
 - Adjust cloud image position

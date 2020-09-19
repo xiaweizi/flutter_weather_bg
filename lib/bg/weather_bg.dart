@@ -54,11 +54,13 @@ class _WeatherBgState extends State<WeatherBg>
 
   @override
   void initState() {
+    /// 初始化过度动画的信息
     _controller =
         AnimationController(duration: Duration(milliseconds: 300), vsync: this);
     CurvedAnimation(parent: _controller, curve: Curves.linear);
     _controller.addListener(() {
       setState(() {
+        // 在回调中跟新，新旧 widget 的 alpha
         _value = _controller.value;
       });
     });
@@ -67,6 +69,7 @@ class _WeatherBgState extends State<WeatherBg>
 
   @override
   void dispose() {
+    /// 记得释放动画控制器资源
     _controller.dispose();
     super.dispose();
   }
@@ -77,6 +80,7 @@ class _WeatherBgState extends State<WeatherBg>
     weatherPrint(
         "width: $globalWidth, height: $globalHeight, globalWidthRatio: $globalWidthRatio");
     if (_oldWeatherType != null && _oldWeatherType != widget.weatherType) {
+      /// 这里通过两个有透明属性的 widget 来完成新旧天气类型的过度效果
       List<Widget> widgets = [];
       widgets.add(Opacity(
         opacity: 1 - _value,

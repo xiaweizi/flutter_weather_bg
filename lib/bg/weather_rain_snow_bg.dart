@@ -8,7 +8,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter_weather_bg/utils/weather_type.dart';
 
-/// 雨雪动画层
+//// 雨雪动画层
 class WeatherRainSnowBg extends StatefulWidget {
   final WeatherType weatherType;
 
@@ -38,7 +38,7 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
     setState(() {});
   }
 
-  // 初始化雨雪参数
+  /// 初始化雨雪参数
   Future<void> initParams() async {
     if (width != 0 && height != 0 && _rainSnows.isEmpty) {
       weatherPrint(
@@ -237,15 +237,19 @@ class RainSnowParams {
   RainSnowParams(this.width, this.height, this.weatherType);
 
   void init() {
-// 雨 0.1 雪 0.5
+   /// 雨 0.1 雪 0.5
     reset();
     y = Random().nextInt(height ~/ scale).toDouble();
   }
 
   void reset() {
+    /// 对于雨雪，需要分别配置不同的缩放起始值
     double initScale = 0.1;
+    /// 对于雨雪，配置不同的缩放区间
     double gapScale = 0.2;
+    /// 配置初始的速度
     double initSpeed = 40;
+    /// 配置速度的区间
     double gapSpeed = 40;
     if (weatherType == WeatherType.lightRainy) {
       initScale = 1.05;

@@ -8,7 +8,7 @@ import 'dart:ui' as ui;
 import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'package:flutter_weather_bg/utils/weather_type.dart';
 
-/// 晴晚&流星层
+//// 晴晚&流星层
 class WeatherNightStarBg extends StatefulWidget {
   final WeatherType weatherType;
 
@@ -24,15 +24,15 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
   List<_StarParam> _starParams = [];
   List<_MeteorParam> _meteorParams = [];
 
+  /// 准备星星的参数信息
   Future<void> fetchImages() async {
-    weatherPrint("开始获取星星");
     initStarParams();
     setState(() {
       _controller.repeat();
     });
   }
 
-  // 初始化星星参数
+  /// 初始化星星参数
   void initStarParams() {
     for (int i = 0; i < 100; i++) {
       var index = Random().nextInt(2);
@@ -49,6 +49,7 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
 
   @override
   void initState() {
+    /// 初始化动画信息
     _controller =
         AnimationController(duration: Duration(seconds: 5), vsync: this);
     _controller.addListener(() {
@@ -85,11 +86,11 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
 class _StarPainter extends CustomPainter {
   var _paint = Paint();
   var _meteorPaint = Paint();
-  final List<_StarParam> _starParams;
-  final List<_MeteorParam> _meteorParams;
-  double _meteorWidth = 200;
-  double _meteorHeight = 2;
-  Radius _radius = Radius.circular(10);
+  final List<_StarParam> _starParams; /// 配置星星数据信息
+  final List<_MeteorParam> _meteorParams; /// 流星参数信息
+  double _meteorWidth = 200; /// 流星的长度
+  double _meteorHeight = 2; /// 流星的高度
+  Radius _radius = Radius.circular(10); /// 流星的圆角半径
 
   _StarPainter(this._starParams, this._meteorParams) {
     _paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 1);
@@ -111,6 +112,7 @@ class _StarPainter extends CustomPainter {
     }
   }
 
+  /// 绘制流星
   void drawMeteor(_MeteorParam param, Canvas canvas) {
     canvas.save();
     var gradient = ui.Gradient.linear(
@@ -134,6 +136,7 @@ class _StarPainter extends CustomPainter {
     canvas.restore();
   }
 
+  /// 绘制星星
   void drawStar(_StarParam param, Canvas canvas) {
     if (param == null) {
       return;

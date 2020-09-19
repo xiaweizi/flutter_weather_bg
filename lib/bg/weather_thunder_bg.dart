@@ -62,6 +62,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
       }
     });
 
+    // 构造第一个闪电的动画数据
     var _animation = TweenSequence([
       TweenSequenceItem(
           tween: Tween(begin: 0.0, end: 1.0)
@@ -79,6 +80,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
       ),
     ));
 
+    // 构造第二个闪电的动画数据
     var _animation1 = TweenSequence([
       TweenSequenceItem(
           tween: Tween(begin: 0.0, end: 1.0)
@@ -96,6 +98,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
       ),
     ));
 
+    // 构造第三个闪电的动画数据
     var _animation2 = TweenSequence([
       TweenSequenceItem(
           tween: Tween(begin: 0.0, end: 1.0)
@@ -149,6 +152,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
   }
 
   Widget _buildWidget() {
+    // 这里需要判断天气类别信息，防止不需要绘制的时候绘制，影响性能
     if (_thunderParams != null && _thunderParams.isNotEmpty && widget.weatherType == WeatherType.thunder) {
       return  CustomPaint(
         painter: ThunderPainter(_thunderParams),
@@ -161,6 +165,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg> with SingleTickerProv
   // 初始化雷暴参数
   void initThunderParams() {
     _thunderParams.clear();
+    // 配置三个闪电信息
     var param1 = ThunderParams(_images[Random().nextInt(5)]);
     param1.reset();
     var param2 = ThunderParams(_images[Random().nextInt(5)]);
@@ -192,7 +197,8 @@ class ThunderPainter extends CustomPainter {
       }
     }
   }
-  
+
+  /// 这里主要负责绘制雷电
   void drawThunder(ThunderParams params, Canvas canvas, Size size) {
     if (params == null || params.image == null) {
       return;
@@ -217,15 +223,16 @@ class ThunderPainter extends CustomPainter {
 }
 
 class ThunderParams {
-  ui.Image image;
-  double x;
-  double y;
-  double alpha;
-  int get imgWidth => image.width;
-  int get imgHeight => image.height;
+  ui.Image image; // 配置闪电的图片资源
+  double x; // 图片展示的 x 坐标
+  double y; // 图片展示的 y 坐标
+  double alpha; // 闪电的 alpha 属性
+  int get imgWidth => image.width; // 雷电图片的宽度
+  int get imgHeight => image.height; // 雷电图片的高度
 
   ThunderParams(this.image);
 
+  // 重置图片的位置信息
   void reset() {
     x = Random().nextDouble() * 0.5 * globalWidth -  1 / 3 * imgWidth;
     y = Random().nextDouble() * -0.05 * globalHeight;
