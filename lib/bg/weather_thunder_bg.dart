@@ -24,6 +24,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg>
   AnimationController _controller;
   List<ThunderParams> _thunderParams = [];
 
+  /// 异步获取雷暴图片资源
   Future<void> fetchImages() async {
     weatherPrint("开始获取雷暴图片");
     var image1 = await ImageUtils.getImage('images/lightning0.webp');
@@ -149,6 +150,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg>
     super.dispose();
   }
 
+  /// 构建雷暴 widget
   Widget _buildWidget() {
     // 这里需要判断天气类别信息，防止不需要绘制的时候绘制，影响性能
     if (_thunderParams != null &&
@@ -162,7 +164,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg>
     }
   }
 
-  // 初始化雷暴参数
+  /// 初始化雷暴参数
   void initThunderParams() {
     _thunderParams.clear();
     // 配置三个闪电信息

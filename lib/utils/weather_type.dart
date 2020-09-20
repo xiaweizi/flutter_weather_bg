@@ -14,18 +14,18 @@ enum WeatherType {
   cloudyNight,
   middleRainy,
   overcast,
-  hazy, /// 霾
+  hazy, // 霾
   foggy, // 雾
   dusty, // 浮尘
 }
 
 /// 天气的相关工具类
 class WeatherUtil {
-
   static bool isSnowRain(WeatherType weatherType) {
     return isRainy(weatherType) || isSnow(weatherType);
   }
 
+  /// 判断是否下雨，小中大包括雷暴，都是属于雨的类型
   static bool isRainy(WeatherType weatherType) {
     return weatherType == WeatherType.lightRainy ||
         weatherType == WeatherType.middleRainy ||
@@ -33,6 +33,7 @@ class WeatherUtil {
         weatherType == WeatherType.thunder;
   }
 
+  /// 判断是否下雪
   static bool isSnow(WeatherType weatherType) {
     return weatherType == WeatherType.lightSnow ||
         weatherType == WeatherType.middleSnow ||
@@ -111,5 +112,4 @@ class WeatherUtil {
         return "晴";
     }
   }
-
 }

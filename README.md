@@ -1,5 +1,7 @@
 # flutter_weather_bg
 
+![Pub Version](https://img.shields.io/pub/v/flutter_weather_bg?style=plastic)
+
 A rich and cool weather dynamic background plug-in, supporting 15 weather types. [README_ZH](/README_ZH.md)
 
 > Use this plug-in to complete the weather background animation effect in your own project [SimplicityWeather](https://github.com/xiaweizi/SimplicityWeather).
@@ -19,7 +21,7 @@ A rich and cool weather dynamic background plug-in, supporting 15 weather types.
 
 ## Installation
 
-Add  `flutter_weather_bg: ^2.4.0` to your `pubspec.yaml` dependencies. And import it:
+Add  `flutter_weather_bg: ^2.6.0` to your `pubspec.yaml` dependencies. And import it:
 
 ```dar
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';

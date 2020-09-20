@@ -28,6 +28,7 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
   int count = 0;
   WeatherType _weatherType;
 
+  /// 异步获取雨雪的图片资源和初始化数据
   Future<void> fetchImages() async {
     weatherPrint("开始获取雨雪图片");
     var image1 = await ImageUtils.getImage('images/rain.webp');
@@ -225,30 +226,49 @@ class RainSnowPainter extends CustomPainter {
 }
 
 class RainSnowParams {
+  /// x 坐标
   double x;
+
+  /// y 坐标
   double y;
+
+  /// 下落速度
   double speed;
+
+  /// 绘制的缩放
   double scale;
+
+  /// 宽度
   double width;
+
+  /// 高度
   double height;
+
+  /// 透明度
   double alpha;
+
+  /// 天气类型
   WeatherType weatherType;
 
   RainSnowParams(this.width, this.height, this.weatherType);
 
   void init() {
-   /// 雨 0.1 雪 0.5
+    /// 雨 0.1 雪 0.5
     reset();
     y = Random().nextInt(height ~/ scale).toDouble();
   }
 
+  /// 当雪花移出屏幕时，需要重置参数
   void reset() {
     /// 对于雨雪，需要分别配置不同的缩放起始值
     double initScale = 0.1;
+
     /// 对于雨雪，配置不同的缩放区间
     double gapScale = 0.2;
+
     /// 配置初始的速度
     double initSpeed = 40;
+
     /// 配置速度的区间
     double gapSpeed = 40;
     if (weatherType == WeatherType.lightRainy) {

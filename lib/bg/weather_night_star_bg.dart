@@ -5,7 +5,6 @@ import 'package:flutter_weather_bg/bg/weather_bg.dart';
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'dart:ui' as ui;
 
-import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'package:flutter_weather_bg/utils/weather_type.dart';
 
 //// 晴晚&流星层
@@ -86,11 +85,21 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
 class _StarPainter extends CustomPainter {
   var _paint = Paint();
   var _meteorPaint = Paint();
-  final List<_StarParam> _starParams; /// 配置星星数据信息
-  final List<_MeteorParam> _meteorParams; /// 流星参数信息
-  double _meteorWidth = 200; /// 流星的长度
-  double _meteorHeight = 2; /// 流星的高度
-  Radius _radius = Radius.circular(10); /// 流星的圆角半径
+  final List<_StarParam> _starParams;
+
+  /// 配置星星数据信息
+  final List<_MeteorParam> _meteorParams;
+
+  /// 流星参数信息
+  double _meteorWidth = 200;
+
+  /// 流星的长度
+  double _meteorHeight = 2;
+
+  /// 流星的高度
+  Radius _radius = Radius.circular(10);
+
+  /// 流星的圆角半径
 
   _StarPainter(this._starParams, this._meteorParams) {
     _paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 1);
@@ -197,11 +206,22 @@ class _MeteorParam {
 }
 
 class _StarParam {
+  /// x 坐标
   double x;
+
+  /// y 坐标
   double y;
+
+  /// 透明度值，默认为 0
   double alpha = 0.0;
+
+  /// 缩放
   double scale;
+
+  /// 是否反向动画
   bool reverse = false;
+
+  /// 当前下标值
   int index;
 
   _StarParam(this.index);
@@ -215,6 +235,7 @@ class _StarParam {
     reverse = false;
   }
 
+  /// 用于初始参数
   void init() {
     alpha = Random().nextDouble();
     double baseScale = index == 0 ? 0.7 : 0.5;
@@ -224,6 +245,7 @@ class _StarParam {
     reverse = false;
   }
 
+  /// 每次绘制完会触发此方法，开始移动
   void move() {
     if (reverse == true) {
       alpha -= 0.01;
