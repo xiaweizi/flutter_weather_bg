@@ -3,29 +3,13 @@ import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
 
 /// 普通的 ViewPager 展示样式
-class PageViewWidget extends StatefulWidget {
-  @override
-  _PageViewWidgetState createState() => _PageViewWidgetState();
-}
-
-class _PageViewWidgetState extends State<PageViewWidget> {
-
-  WeatherType _weatherType = WeatherType.sunny;
-
+class PageViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("$_weatherType"),
-      ),
       body: Container(
         child: PageView.builder(
           physics: BouncingScrollPhysics(),
-          onPageChanged: (index) {
-            setState(() {
-              _weatherType = WeatherType.values[index];
-            });
-          },
           itemBuilder: (BuildContext context, int index) {
             weatherPrint("pageView: ${MediaQuery.of(context).size}");
             return Stack(
@@ -51,3 +35,4 @@ class _PageViewWidgetState extends State<PageViewWidget> {
     );
   }
 }
+

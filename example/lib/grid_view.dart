@@ -64,21 +64,29 @@ class GridItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     weatherPrint("grid item size: ${MediaQuery.of(context).size}");
-    return Stack(
-      children: [
-        WeatherBg(
-          weatherType: weatherType,
-          width: MediaQuery.of(context).size.width / count,
-          height: MediaQuery.of(context).size.width * 2,
+    return Card(
+      elevation: 6,
+      margin: EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: ClipPath(
+        clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+        child: Stack(
+          children: [
+            WeatherBg(
+              weatherType: weatherType,
+              width: MediaQuery.of(context).size.width / count,
+              height: MediaQuery.of(context).size.width * 2,
+            ),
+            Center(
+              child: Text(
+                WeatherUtil.getWeatherDesc(weatherType),
+                style: TextStyle(
+                    color: Colors.white, fontSize: 30 / count, fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
         ),
-        Center(
-          child: Text(
-            WeatherUtil.getWeatherDesc(weatherType),
-            style: TextStyle(
-                color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
-          ),
-        )
-      ],
+      ),
     );
   }
 }

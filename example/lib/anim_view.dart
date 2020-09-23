@@ -25,11 +25,22 @@ class _AnimViewWidgetState extends State<AnimViewWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              child: WeatherBg(
-                weatherType: _weatherType,
-                width: _width,
-                height: _height,
+            Card(
+              elevation: 7,
+              margin: EdgeInsets.only(top: 15),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              child: ClipPath(
+                clipper: ShapeBorderClipper(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15))),
+                child: Container(
+                  child: WeatherBg(
+                    weatherType: _weatherType,
+                    width: _width,
+                    height: _height,
+                  ),
+                ),
               ),
             ),
             SizedBox(
