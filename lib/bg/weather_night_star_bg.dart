@@ -231,7 +231,7 @@ class _StarParam {
     double baseScale = index == 0 ? 0.7 : 0.5;
     scale = (Random().nextDouble() * 0.1 + baseScale) * globalWidthRatio;
     x = Random().nextDouble() * 1 * globalWidth / scale;
-    y = Random().nextDouble() * 0.3 * globalHeight;
+    y = Random().nextDouble() * max(0.3 * globalHeight, 150);
     reverse = false;
   }
 
@@ -241,7 +241,7 @@ class _StarParam {
     double baseScale = index == 0 ? 0.7 : 0.5;
     scale = (Random().nextDouble() * 0.1 + baseScale) * globalWidthRatio;
     x = Random().nextDouble() * 1 * globalWidth / scale;
-    y = Random().nextDouble() * 0.3 * globalHeight;
+    y = Random().nextDouble() * max(0.3 * globalHeight, 150);
     reverse = false;
   }
 
