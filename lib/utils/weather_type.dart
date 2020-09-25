@@ -19,6 +19,18 @@ enum WeatherType {
   dusty, // 浮尘
 }
 
+/// 数据加载状态
+enum WeatherDataState {
+  /// 初始化
+  init,
+
+  /// 正在加载
+  loading,
+
+  /// 加载结束
+  finish,
+}
+
 /// 天气的相关工具类
 class WeatherUtil {
   static bool isSnowRain(WeatherType weatherType) {

@@ -23,6 +23,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg>
   List<ui.Image> _images = [];
   AnimationController _controller;
   List<ThunderParams> _thunderParams = [];
+  WeatherDataState _state;
 
   /// 异步获取雷暴图片资源
   Future<void> fetchImages() async {
@@ -38,10 +39,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg>
     _images.add(image4);
     _images.add(image5);
     weatherPrint("获取雷暴图片成功： ${_images?.length}");
-    initThunderParams();
-    setState(() {
-      _controller.forward();
-    });
+    _state = WeatherDataState.init;
   }
 
   @override
@@ -166,6 +164,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg>
 
   /// 初始化雷暴参数
   void initThunderParams() {
+    _state = WeatherDataState.loading;
     _thunderParams.clear();
     // 配置三个闪电信息
     var param1 = ThunderParams(_images[Random().nextInt(5)]);
@@ -177,11 +176,18 @@ class _WeatherCloudBgState extends State<WeatherThunderBg>
     _thunderParams.add(param1);
     _thunderParams.add(param2);
     _thunderParams.add(param3);
+    _controller.forward();
+    _state = WeatherDataState.finish;
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildWidget();
+    if (_state == WeatherDataState.init) {
+      initThunderParams();
+    } else if (_state == WeatherDataState.finish) {
+      return _buildWidget();
+    }
+    return Container();
   }
 }
 

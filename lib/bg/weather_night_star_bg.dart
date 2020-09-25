@@ -23,13 +23,17 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
   AnimationController _controller;
   List<_StarParam> _starParams = [];
   List<_MeteorParam> _meteorParams = [];
+  WeatherDataState _state = WeatherDataState.init;
 
   /// 准备星星的参数信息
-  Future<void> fetchImages() async {
+  void fetchData() async {
+    weatherPrint("开始准备星星参数");
+    _state = WeatherDataState.loading;
     initStarParams();
     setState(() {
       _controller.repeat();
     });
+    _state = WeatherDataState.finish;
   }
 
   /// 初始化星星参数
@@ -55,7 +59,6 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
     _controller.addListener(() {
       setState(() {});
     });
-    fetchImages();
     super.initState();
   }
 
@@ -79,7 +82,12 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
 
   @override
   Widget build(BuildContext context) {
-    return _buildWidget();
+    if (_state == WeatherDataState.init) {
+      fetchData();
+    } else if (_state == WeatherDataState.finish) {
+      return _buildWidget();
+    }
+    return Container();
   }
 }
 
@@ -101,7 +109,6 @@ class _StarPainter extends CustomPainter {
   Radius _radius = Radius.circular(10);
 
   /// 流星的圆角半径
-
   _StarPainter(this._starParams, this._meteorParams) {
     _paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 1);
     _paint.color = Colors.white;

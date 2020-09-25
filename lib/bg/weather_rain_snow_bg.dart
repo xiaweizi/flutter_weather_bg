@@ -26,21 +26,24 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
   double width = 0;
   double height = 0;
   int count = 0;
-  WeatherType _weatherType;
+  WeatherDataState _state;
 
   /// 异步获取雨雪的图片资源和初始化数据
   Future<void> fetchImages() async {
     weatherPrint("开始获取雨雪图片");
     var image1 = await ImageUtils.getImage('images/rain.webp');
     var image2 = await ImageUtils.getImage('images/snow.webp');
+    _images.clear();
     _images.add(image1);
     _images.add(image2);
     weatherPrint("获取雨雪图片成功： ${_images?.length}");
+    _state = WeatherDataState.init;
     setState(() {});
   }
 
   /// 初始化雨雪参数
   Future<void> initParams() async {
+    _state = WeatherDataState.loading;
     if (width != 0 && height != 0 && _rainSnows.isEmpty) {
       weatherPrint(
           "开始雨参数初始化 ${_rainSnows.length}， weatherType: ${widget.weatherType}, isRainy: ${WeatherUtil.isRainy(widget.weatherType)}");
@@ -67,6 +70,17 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
         weatherPrint("初始化雨参数成功 ${_rainSnows.length}");
       }
     }
+    _controller.forward();
+    _state = WeatherDataState.finish;
+  }
+
+  @override
+  void didUpdateWidget(WeatherRainSnowBg oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.weatherType != widget.weatherType) {
+      _rainSnows.clear();
+      initParams();
+    }
   }
 
   @override
@@ -82,7 +96,6 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
         _controller.repeat();
       }
     });
-    _controller.forward();
     fetchImages();
     super.initState();
   }
@@ -97,14 +110,14 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    if (_weatherType != widget.weatherType) {
-      _weatherType = widget.weatherType;
-      _rainSnows.clear();
+    if (_state == WeatherDataState.init) {
       initParams();
+    } else if (_state == WeatherDataState.finish) {
+      return CustomPaint(
+        painter: RainSnowPainter(this),
+      );
     }
-    return CustomPaint(
-      painter: RainSnowPainter(this),
-    );
+    return Container();
   }
 }
 
