@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg/bg/weather_bg.dart';
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
+import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'dart:ui' as ui;
 
 import 'package:flutter_weather_bg/utils/weather_type.dart';

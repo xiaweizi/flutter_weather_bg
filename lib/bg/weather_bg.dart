@@ -38,8 +38,8 @@ class WeatherBg extends StatefulWidget {
 class _WeatherBgState extends State<WeatherBg>
     with SingleTickerProviderStateMixin {
   WeatherType _oldWeatherType;
-  double _value = 1;
-  AnimationController _controller;
+  bool needChange = false;
+  var state = CrossFadeState.showSecond;
 
   @override
   void didUpdateWidget(WeatherBg oldWidget) {
@@ -47,67 +47,46 @@ class _WeatherBgState extends State<WeatherBg>
     if (widget.weatherType != oldWidget.weatherType) {
       // 如果类别发生改变，需要 start 渐变动画
       _oldWeatherType = oldWidget.weatherType;
-      _controller.reset();
-      _controller.forward();
+      needChange = true;
     }
-  }
-
-  @override
-  void initState() {
-    /// 初始化过度动画的信息
-    _controller =
-        AnimationController(duration: Duration(milliseconds: 300), vsync: this);
-    CurvedAnimation(parent: _controller, curve: Curves.linear);
-    _controller.addListener(() {
-      setState(() {
-        // 在回调中跟新，新旧 widget 的 alpha
-        _value = _controller.value;
-      });
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    /// 记得释放动画控制器资源
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     weatherPrint(
         "width: $globalWidth, height: $globalHeight, globalWidthRatio: $globalWidthRatio");
-    if (_oldWeatherType != null && _oldWeatherType != widget.weatherType) {
-      /// 这里通过两个有透明属性的 widget 来完成新旧天气类型的过度效果
-      List<Widget> widgets = [];
-      widgets.add(Opacity(
-        opacity: 1 - _value,
-        child: WeatherItemBg(
-          weatherType: _oldWeatherType,
-        ),
-      ));
-      widgets.add(Opacity(
-        opacity: _value,
-        child: WeatherItemBg(
-          weatherType: widget.weatherType,
-        ),
-      ));
-      return Container(
-        width: globalWidth,
-        height: globalHeight,
-        child: Stack(
-          children: widgets,
-        ),
-      );
-    } else {
-      return SizeInherited(
-        child: WeatherItemBg(
-          weatherType: widget.weatherType,
-        ),
-        size: Size(globalWidth, globalHeight),
+    var oldBgWidget;
+    if (_oldWeatherType != null) {
+      oldBgWidget = WeatherItemBg(
+        weatherType: _oldWeatherType,
       );
     }
+    var currentBgWidget = WeatherItemBg(
+      weatherType: widget.weatherType,
+    );
+    if (oldBgWidget == null) {
+      oldBgWidget = currentBgWidget;
+    }
+    var firstWidget = currentBgWidget;
+    var secondWidget = currentBgWidget;
+    if (needChange) {
+      if (state == CrossFadeState.showSecond) {
+        state = CrossFadeState.showFirst;
+        firstWidget = currentBgWidget;
+        secondWidget = oldBgWidget;
+      } else {
+        state = CrossFadeState.showSecond;
+        secondWidget = currentBgWidget;
+        firstWidget = oldBgWidget;
+      }
+    }
+    needChange = false;
+    return AnimatedCrossFade(
+      firstChild: firstWidget,
+      secondChild: secondWidget,
+      duration: Duration(milliseconds: 300),
+      crossFadeState: state,
+    );
   }
 }
 
@@ -115,6 +94,36 @@ class WeatherItemBg extends StatelessWidget {
   final WeatherType weatherType;
 
   WeatherItemBg({Key key, this.weatherType}) : super(key: key);
+
+  /// 构建晴晚背景效果
+  Widget _buildNightStarBg() {
+    if (weatherType == WeatherType.sunnyNight) {
+      return WeatherNightStarBg(
+        weatherType: weatherType,
+      );
+    }
+    return Container();
+  }
+
+  /// 构建雷暴效果
+  Widget _buildThunderBg() {
+    if (weatherType == WeatherType.thunder) {
+      return WeatherThunderBg(
+        weatherType: weatherType,
+      );
+    }
+    return Container();
+  }
+
+  /// 构建雨雪背景效果
+  Widget _buildRainSnowBg() {
+    if (WeatherUtil.isSnowRain(weatherType)) {
+      return WeatherRainSnowBg(
+        weatherType: weatherType,
+      );
+    }
+    return Container();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,15 +137,9 @@ class WeatherItemBg extends StatelessWidget {
             WeatherCloudBg(
               weatherType: weatherType,
             ),
-            WeatherRainSnowBg(
-              weatherType: weatherType,
-            ),
-            WeatherThunderBg(
-              weatherType: weatherType,
-            ),
-            WeatherNightStarBg(
-              weatherType: weatherType,
-            ),
+            _buildRainSnowBg(),
+            _buildThunderBg(),
+            _buildNightStarBg(),
           ],
         ),
       ),
@@ -146,6 +149,7 @@ class WeatherItemBg extends StatelessWidget {
 
 class SizeInherited extends InheritedWidget {
   final Size size;
+
   const SizeInherited({
     Key key,
     @required Widget child,

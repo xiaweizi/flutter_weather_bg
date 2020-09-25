@@ -44,10 +44,36 @@ class ListItemWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: ClipPath(
-        child: WeatherBg(
-          weatherType: weatherType,
-          width: MediaQuery.of(context).size.width - 40,
-          height: 100,
+        child: Stack(
+          children: [
+            WeatherBg(
+              weatherType: weatherType,
+              width: MediaQuery.of(context).size.width,
+              height: 100,
+            ),
+            Container(
+              alignment: Alignment(-0.8, 0),
+              height: 100,
+              child: Text(
+                "北京",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(
+              alignment: Alignment(0.8, 0),
+              height: 100,
+              child: Text(
+                WeatherUtil.getWeatherDesc(weatherType),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
         ),
         clipper: ShapeBorderClipper(
             shape: RoundedRectangleBorder(
