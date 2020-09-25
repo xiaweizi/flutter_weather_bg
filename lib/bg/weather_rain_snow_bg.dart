@@ -49,12 +49,12 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
           "开始雨参数初始化 ${_rainSnows.length}， weatherType: ${widget.weatherType}, isRainy: ${WeatherUtil.isRainy(widget.weatherType)}");
       if (WeatherUtil.isSnowRain(widget.weatherType)) {
         if (widget.weatherType == WeatherType.lightRainy) {
-          count = 50;
+          count = 70;
         } else if (widget.weatherType == WeatherType.middleRainy) {
-          count = 80;
+          count = 100;
         } else if (widget.weatherType == WeatherType.heavyRainy ||
             widget.weatherType == WeatherType.thunder) {
-          count = 160;
+          count = 200;
         } else if (widget.weatherType == WeatherType.lightSnow) {
           count = 30;
         } else if (widget.weatherType == WeatherType.middleSnow) {
@@ -63,9 +63,10 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
           count = 200;
         }
         var widthRatio = SizeInherited.of(context).size.width / 392.0;
+        var heightRatio = SizeInherited.of(context).size.height / 817;
         for (int i = 0; i < count; i++) {
           var rainSnow = RainSnowParams(width, height, widget.weatherType);
-          rainSnow.init(widthRatio);
+          rainSnow.init(widthRatio, heightRatio);
           _rainSnows.add(rainSnow);
         }
         weatherPrint("初始化雨参数成功 ${_rainSnows.length}");
@@ -184,7 +185,7 @@ class RainSnowPainter extends CustomPainter {
       params.x += offsetX;
     }
     if (params.y > 800 / params.scale) {
-      params.y = 0;
+      params.y = -params.height * params.scale;
       if (WeatherUtil.isRainy(_state.widget.weatherType) &&
           _state._images.isNotEmpty &&
           _state._images[0] != null) {
@@ -265,11 +266,13 @@ class RainSnowParams {
   WeatherType weatherType;
 
   double widthRatio;
+  double heightRatio;
 
   RainSnowParams(this.width, this.height, this.weatherType);
 
-  void init(widthRatio) {
+  void init(widthRatio, heightRatio) {
     this.widthRatio = widthRatio;
+    this.heightRatio = max(heightRatio, 0.65);
 
     /// 雨 0.1 雪 0.5
     reset();
@@ -278,54 +281,36 @@ class RainSnowParams {
 
   /// 当雪花移出屏幕时，需要重置参数
   void reset() {
-    /// 对于雨雪，需要分别配置不同的缩放起始值
-    double initScale = 0.1;
+    double ratio = 1.0;
 
-    /// 对于雨雪，配置不同的缩放区间
-    double gapScale = 0.2;
-
-    /// 配置初始的速度
-    double initSpeed = 40;
-
-    /// 配置速度的区间
-    double gapSpeed = 40;
     if (weatherType == WeatherType.lightRainy) {
-      initScale = 1.05;
-      gapScale = 0.1;
-      initSpeed = 15;
-      gapSpeed = 10;
+      ratio = 0.5;
     } else if (weatherType == WeatherType.middleRainy) {
-      initScale = 1.07;
-      gapScale = 0.12;
-      initSpeed = 20;
-      gapSpeed = 20;
+      ratio = 0.75;
     } else if (weatherType == WeatherType.heavyRainy ||
         weatherType == WeatherType.thunder) {
-      initScale = 1.09;
-      gapScale = 0.15;
-      initSpeed = 22;
-      gapSpeed = 20;
+      ratio = 1;
     } else if (weatherType == WeatherType.lightSnow) {
-      initScale = 0.45;
-      gapScale = 0.05;
-      initSpeed = 2;
-      gapSpeed = 3;
+      ratio = 0.5;
     } else if (weatherType == WeatherType.middleSnow) {
-      initScale = 0.4;
-      gapScale = 0.15;
-      initSpeed = 3;
-      gapSpeed = 6;
+      ratio = 0.75;
     } else if (weatherType == WeatherType.heavySnow) {
-      initScale = 0.45;
-      gapScale = 0.2;
-      initSpeed = 4;
-      gapSpeed = 7;
+      ratio = 1;
     }
-    double random = Random().nextDouble();
-    this.scale = (initScale + gapScale * random) * widthRatio;
-    this.speed = initSpeed + gapSpeed * (1 - random);
-    this.alpha = 0.1 + 0.9 * random;
-    x = Random().nextInt(width * 1.2 * widthRatio ~/ scale).toDouble() -
-        width * 0.1 ~/ scale;
+    if (WeatherUtil.isRainy(weatherType)) {
+      double random = 0.4 + 0.12 * Random().nextDouble() * 5;
+      this.scale = random * 1.2;
+      this.speed = 30 * random * ratio * heightRatio;
+      this.alpha = random * 0.6;
+      x = Random().nextInt(width * 1.2 * widthRatio ~/ scale).toDouble() -
+          width * 0.1 ~/ scale;
+    } else {
+      double random = 0.4 + 0.12 * Random().nextDouble() * 5;
+      this.scale = random * 0.8;
+      this.speed = 10 * random * ratio * heightRatio;
+      this.alpha = random;
+      x = Random().nextInt(width * 1.2 * widthRatio ~/ scale).toDouble() -
+          width * 0.1 ~/ scale;
+    }
   }
 }
