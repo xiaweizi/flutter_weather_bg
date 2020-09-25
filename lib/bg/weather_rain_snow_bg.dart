@@ -62,9 +62,10 @@ class _WeatherRainSnowBgState extends State<WeatherRainSnowBg>
         } else if (widget.weatherType == WeatherType.heavySnow) {
           count = 200;
         }
+        var widthRatio = SizeInherited.of(context).size.width / 392.0;
         for (int i = 0; i < count; i++) {
           var rainSnow = RainSnowParams(width, height, widget.weatherType);
-          rainSnow.init();
+          rainSnow.init(widthRatio);
           _rainSnows.add(rainSnow);
         }
         weatherPrint("初始化雨参数成功 ${_rainSnows.length}");
@@ -263,9 +264,13 @@ class RainSnowParams {
   /// 天气类型
   WeatherType weatherType;
 
+  double widthRatio;
+
   RainSnowParams(this.width, this.height, this.weatherType);
 
-  void init() {
+  void init(widthRatio) {
+    this.widthRatio = widthRatio;
+
     /// 雨 0.1 雪 0.5
     reset();
     y = Random().nextInt(height ~/ scale).toDouble();
@@ -317,10 +322,10 @@ class RainSnowParams {
       gapSpeed = 7;
     }
     double random = Random().nextDouble();
-    this.scale = (initScale + gapScale * random) * globalWidthRatio;
+    this.scale = (initScale + gapScale * random) * widthRatio;
     this.speed = initSpeed + gapSpeed * (1 - random);
     this.alpha = 0.1 + 0.9 * random;
-    x = Random().nextInt(width * 1.2 * globalWidthRatio ~/ scale).toDouble() -
+    x = Random().nextInt(width * 1.2 * widthRatio ~/ scale).toDouble() -
         width * 0.1 ~/ scale;
   }
 }

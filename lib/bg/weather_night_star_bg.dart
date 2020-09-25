@@ -24,9 +24,16 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
   List<_StarParam> _starParams = [];
   List<_MeteorParam> _meteorParams = [];
   WeatherDataState _state = WeatherDataState.init;
+  double width;
+  double height;
+  double widthRatio;
 
   /// 准备星星的参数信息
   void fetchData() async {
+    Size size = SizeInherited.of(context).size;
+    width = size.width;
+    height = size.height;
+    widthRatio = width / 392.0;
     weatherPrint("开始准备星星参数");
     _state = WeatherDataState.loading;
     initStarParams();
@@ -41,12 +48,12 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
     for (int i = 0; i < 100; i++) {
       var index = Random().nextInt(2);
       _StarParam _starParam = _StarParam(index);
-      _starParam.init();
+      _starParam.init(width, height, widthRatio);
       _starParams.add(_starParam);
     }
     for (int i = 0; i < 4; i++) {
       _MeteorParam param = _MeteorParam();
-      param.reset();
+      param.init(width, height, widthRatio);
       _meteorParams.add(param);
     }
   }
@@ -73,7 +80,8 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
         _starParams.isNotEmpty &&
         widget.weatherType == WeatherType.sunnyNight) {
       return CustomPaint(
-        painter: _StarPainter(_starParams, _meteorParams),
+        painter:
+            _StarPainter(_starParams, _meteorParams, width, height, widthRatio),
       );
     } else {
       return Container();
@@ -92,24 +100,29 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
 }
 
 class _StarPainter extends CustomPainter {
-  var _paint = Paint();
-  var _meteorPaint = Paint();
+  final _paint = Paint();
+  final _meteorPaint = Paint();
   final List<_StarParam> _starParams;
+
+  final width;
+  final height;
+  final widthRatio;
 
   /// 配置星星数据信息
   final List<_MeteorParam> _meteorParams;
 
   /// 流星参数信息
-  double _meteorWidth = 200;
+  final double _meteorWidth = 200;
 
   /// 流星的长度
-  double _meteorHeight = 2;
+  final double _meteorHeight = 2;
 
   /// 流星的高度
-  Radius _radius = Radius.circular(10);
+  final Radius _radius = Radius.circular(10);
 
   /// 流星的圆角半径
-  _StarPainter(this._starParams, this._meteorParams) {
+  _StarPainter(this._starParams, this._meteorParams, this.width, this.height,
+      this.widthRatio) {
     _paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 1);
     _paint.color = Colors.white;
     _paint.style = PaintingStyle.fill;
@@ -139,7 +152,7 @@ class _StarPainter extends CustomPainter {
     );
     _meteorPaint.shader = gradient;
     canvas.rotate(pi * param.radians);
-    canvas.scale(globalWidthRatio);
+    canvas.scale(widthRatio);
     canvas.translate(
         param.translateX, tan(pi * 0.1) * _meteorWidth + param.translateY);
     canvas.drawRRect(
@@ -199,15 +212,27 @@ class _MeteorParam {
   double translateY;
   double radians;
 
-  void reset() {
-    translateX = globalWidth + Random().nextDouble() * 20.0 * globalWidth;
-    radians = -Random().nextDouble() * 0.07 - 0.05;
-    translateY = Random().nextDouble() * 0.5 * globalHeight * globalWidthRatio;
+  double width, height, widthRatio;
+
+  /// 初始化数据
+  void init(width, height, widthRatio) {
+    this.width = width;
+    this.height = height;
+    this.widthRatio = widthRatio;
+    reset();
   }
 
+  /// 重置数据
+  void reset() {
+    translateX = width + Random().nextDouble() * 20.0 * width;
+    radians = -Random().nextDouble() * 0.07 - 0.05;
+    translateY = Random().nextDouble() * 0.5 * height * widthRatio;
+  }
+
+  /// 移动
   void move() {
     translateX -= 20;
-    if (translateX <= -1.0 * globalWidth / globalWidthRatio) {
+    if (translateX <= -1.0 * width / widthRatio) {
       reset();
     }
   }
@@ -232,24 +257,33 @@ class _StarParam {
   /// 当前下标值
   int index;
 
+  double width;
+
+  double height;
+
+  double widthRatio;
+
   _StarParam(this.index);
 
   void reset() {
     alpha = 0;
     double baseScale = index == 0 ? 0.7 : 0.5;
-    scale = (Random().nextDouble() * 0.1 + baseScale) * globalWidthRatio;
-    x = Random().nextDouble() * 1 * globalWidth / scale;
-    y = Random().nextDouble() * max(0.3 * globalHeight, 150);
+    scale = (Random().nextDouble() * 0.1 + baseScale) * widthRatio;
+    x = Random().nextDouble() * 1 * width / scale;
+    y = Random().nextDouble() * max(0.3 * height, 150);
     reverse = false;
   }
 
   /// 用于初始参数
-  void init() {
+  void init(width, height, widthRatio) {
+    this.width = width;
+    this.height = height;
+    this.widthRatio = widthRatio;
     alpha = Random().nextDouble();
     double baseScale = index == 0 ? 0.7 : 0.5;
-    scale = (Random().nextDouble() * 0.1 + baseScale) * globalWidthRatio;
-    x = Random().nextDouble() * 1 * globalWidth / scale;
-    y = Random().nextDouble() * max(0.3 * globalHeight, 150);
+    scale = (Random().nextDouble() * 0.1 + baseScale) * widthRatio;
+    x = Random().nextDouble() * 1 * width / scale;
+    y = Random().nextDouble() * max(0.3 * height, 150);
     reverse = false;
   }
 

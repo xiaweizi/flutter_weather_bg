@@ -40,6 +40,7 @@ class _WeatherCloudBgState extends State<WeatherThunderBg>
     _images.add(image5);
     weatherPrint("获取雷暴图片成功： ${_images?.length}");
     _state = WeatherDataState.init;
+    setState(() {});
   }
 
   @override
@@ -166,16 +167,17 @@ class _WeatherCloudBgState extends State<WeatherThunderBg>
   void initThunderParams() {
     _state = WeatherDataState.loading;
     _thunderParams.clear();
+    var size = SizeInherited.of(context).size;
+    var width = size.width;
+    var height = size.height;
+    var widthRatio = size.width / 392.0;
     // 配置三个闪电信息
-    var param1 = ThunderParams(_images[Random().nextInt(5)]);
-    param1.reset();
-    var param2 = ThunderParams(_images[Random().nextInt(5)]);
-    param2.reset();
-    var param3 = ThunderParams(_images[Random().nextInt(5)]);
-    param3.reset();
-    _thunderParams.add(param1);
-    _thunderParams.add(param2);
-    _thunderParams.add(param3);
+    for (var i = 0; i < 3; i++) {
+      var param = ThunderParams(
+          _images[Random().nextInt(5)], width, height, widthRatio);
+      param.reset();
+      _thunderParams.add(param);
+    }
     _controller.forward();
     _state = WeatherDataState.finish;
   }
@@ -235,7 +237,7 @@ class ThunderPainter extends CustomPainter {
       0,
     ]);
     _paint.colorFilter = identity;
-    canvas.scale(globalWidthRatio);
+    canvas.scale(params.widthRatio);
     canvas.drawImage(params.image, Offset(params.x, params.y), _paint);
     canvas.restore();
   }
@@ -253,13 +255,14 @@ class ThunderParams {
   double alpha; // 闪电的 alpha 属性
   int get imgWidth => image.width; // 雷电图片的宽度
   int get imgHeight => image.height; // 雷电图片的高度
+  final double width, height, widthRatio;
 
-  ThunderParams(this.image);
+  ThunderParams(this.image, this.width, this.height, this.widthRatio);
 
   // 重置图片的位置信息
   void reset() {
-    x = Random().nextDouble() * 0.5 * globalWidth - 1 / 3 * imgWidth;
-    y = Random().nextDouble() * -0.05 * globalHeight;
+    x = Random().nextDouble() * 0.5 * widthRatio - 1 / 3 * imgWidth;
+    y = Random().nextDouble() * -0.05 * height;
     alpha = 0;
   }
 }

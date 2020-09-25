@@ -4,32 +4,19 @@ import 'package:flutter_weather_bg/bg/weather_color_bg.dart';
 import 'package:flutter_weather_bg/bg/weather_night_star_bg.dart';
 import 'package:flutter_weather_bg/bg/weather_rain_snow_bg.dart';
 import 'package:flutter_weather_bg/bg/weather_thunder_bg.dart';
-import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'package:flutter_weather_bg/utils/weather_type.dart';
-
-// 全局的高度
-double globalHeight = 0.0;
-// 全局的宽度
-double globalWidth = 0.0;
-// 根据宽高比，控制图片的缩放比例
-double globalWidthRatio = 0.0;
 
 /// 最核心的类，集合背景&雷&雨雪&晴晚&流星效果
 /// 1. 支持动态切换大小
 /// 2. 支持渐变过度
 class WeatherBg extends StatefulWidget {
   final WeatherType weatherType;
+  final double width;
+  final double height;
 
   WeatherBg(
-      {Key key,
-      this.weatherType,
-      @required double width,
-      @required double height})
-      : super(key: key) {
-    globalWidth = width;
-    globalHeight = height;
-    globalWidthRatio = globalWidth / 392.0;
-  }
+      {Key key, this.weatherType, @required this.width, @required this.height})
+      : super(key: key);
 
   @override
   _WeatherBgState createState() => _WeatherBgState();
@@ -53,16 +40,18 @@ class _WeatherBgState extends State<WeatherBg>
 
   @override
   Widget build(BuildContext context) {
-    weatherPrint(
-        "width: $globalWidth, height: $globalHeight, globalWidthRatio: $globalWidthRatio");
     var oldBgWidget;
     if (_oldWeatherType != null) {
       oldBgWidget = WeatherItemBg(
         weatherType: _oldWeatherType,
+        width: widget.width,
+        height: widget.height,
       );
     }
     var currentBgWidget = WeatherItemBg(
       weatherType: widget.weatherType,
+      width: widget.width,
+      height: widget.height,
     );
     if (oldBgWidget == null) {
       oldBgWidget = currentBgWidget;
@@ -81,19 +70,25 @@ class _WeatherBgState extends State<WeatherBg>
       }
     }
     needChange = false;
-    return AnimatedCrossFade(
-      firstChild: firstWidget,
-      secondChild: secondWidget,
-      duration: Duration(milliseconds: 300),
-      crossFadeState: state,
+    return SizeInherited(
+      child: AnimatedCrossFade(
+        firstChild: firstWidget,
+        secondChild: secondWidget,
+        duration: Duration(milliseconds: 300),
+        crossFadeState: state,
+      ),
+      size: Size(widget.width, widget.height),
     );
   }
 }
 
 class WeatherItemBg extends StatelessWidget {
   final WeatherType weatherType;
+  final width;
+  final height;
 
-  WeatherItemBg({Key key, this.weatherType}) : super(key: key);
+  WeatherItemBg({Key key, this.weatherType, this.width, this.height})
+      : super(key: key);
 
   /// 构建晴晚背景效果
   Widget _buildNightStarBg() {
@@ -128,8 +123,8 @@ class WeatherItemBg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: globalWidth,
-      height: globalHeight,
+      width: width,
+      height: height,
       child: ClipRect(
         child: Stack(
           children: [
