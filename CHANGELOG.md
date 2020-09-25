@@ -1,3 +1,11 @@
+## 2.7.0
+
+- Beautify the home page entrance display UI
+
+## 2.6.0
+
+- Minimum height of restricted sunny night
+
 ## 2.5.0
 
 - Update ReadMe

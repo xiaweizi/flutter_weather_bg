@@ -21,7 +21,7 @@
 
 ## 安装
 
-添加 `flutter_weather_bg: ^2.6.0` 到 `pubspec.yaml` 文件中，并且导包：
+添加 `flutter_weather_bg: ^2.7.0` 到 `pubspec.yaml` 文件中，并且导包：
 
 ```dar
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';

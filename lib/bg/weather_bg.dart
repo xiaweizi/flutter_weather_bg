@@ -76,7 +76,6 @@ class _WeatherBgState extends State<WeatherBg>
 
   @override
   Widget build(BuildContext context) {
-    weatherPrint("xiaweizi::old: $_oldWeatherType, new: ${widget.weatherType}");
     weatherPrint(
         "width: $globalWidth, height: $globalHeight, globalWidthRatio: $globalWidthRatio");
     if (_oldWeatherType != null && _oldWeatherType != widget.weatherType) {
@@ -102,8 +101,11 @@ class _WeatherBgState extends State<WeatherBg>
         ),
       );
     } else {
-      return WeatherItemBg(
-        weatherType: widget.weatherType,
+      return SizeInherited(
+        child: WeatherItemBg(
+          weatherType: widget.weatherType,
+        ),
+        size: Size(globalWidth, globalHeight),
       );
     }
   }
@@ -139,5 +141,24 @@ class WeatherItemBg extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SizeInherited extends InheritedWidget {
+  final Size size;
+  const SizeInherited({
+    Key key,
+    @required Widget child,
+    @required this.size,
+  })  : assert(child != null),
+        super(key: key, child: child);
+
+  static SizeInherited of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<SizeInherited>();
+  }
+
+  @override
+  bool updateShouldNotify(SizeInherited old) {
+    return old.size != size;
   }
 }

@@ -1,4 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_bg/bg/weather_bg.dart';
+import 'package:flutter_weather_bg/flutter_weather_bg.dart';
+import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'package:flutter_weather_bg_example/anim_view.dart';
 
 import 'package:flutter_weather_bg_example/grid_view.dart';
@@ -8,6 +13,11 @@ import 'package:flutter_weather_bg_example/page_view.dart';
 void main() {
   runApp(MyApp());
 }
+
+const routePage = "page";
+const routeList = "list";
+const routeGrid = "grid";
+const routeAnim = "anim";
 
 class MyApp extends StatefulWidget {
   @override
@@ -24,19 +34,19 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "page": (BuildContext context) {
+        routePage: (BuildContext context) {
           // 普通的侧滑样式
           return PageViewWidget();
         },
-        "list": (BuildContext context) {
+        routeList: (BuildContext context) {
           // 宫格样式
           return ListViewWidget();
         },
-        "grid": (BuildContext context) {
+        routeGrid: (BuildContext context) {
           // 宫格样式
           return GridViewWidget();
         },
-        "anim": (BuildContext context) {
+        routeAnim: (BuildContext context) {
           // 动态切换 宽高样式
           return AnimViewWidget();
         }
@@ -46,52 +56,72 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+/// demo 首页布局
 class HomePage extends StatelessWidget {
+  /// 创建首页 item 布局
+  Widget _buildItem(BuildContext context, String routeName, String desc,
+      WeatherType weatherType) {
+    double width = MediaQuery.of(context).size.width;
+    double marginLeft = 10.0;
+    double marginTop = 8.0;
+    double itemWidth = (width - marginLeft * 4) / 2;
+    double itemHeight = itemWidth * 1.5;
+    var radius = 10.0;
+    return Container(
+      width: itemWidth,
+      height: itemHeight,
+      child: Card(
+        elevation: 7,
+        margin:
+            EdgeInsets.symmetric(horizontal: marginLeft, vertical: marginTop),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+        child: ClipPath(
+          clipper: ShapeBorderClipper(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(radius))),
+          child: Stack(
+            children: [
+              WeatherBg(
+                weatherType: weatherType,
+                width: itemWidth,
+                height: itemHeight,
+              ),
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
+                child: InkWell(
+                  child: Center(
+                    child: Text(
+                      desc,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                  onTap: () {
+                    weatherPrint("name: $routeName");
+                    Navigator.of(context).pushNamed(routeName);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Plugin example app'),
-      ),
       body: Center(
-        child: Column(
+        child: Wrap(
           children: [
-            SizedBox(
-              height: 20,
-            ),
-            RaisedButton(
-              child: Text("page"),
-              onPressed: () {
-                Navigator.of(context).pushNamed("page");
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            RaisedButton(
-              child: Text("list"),
-              onPressed: () {
-                Navigator.of(context).pushNamed("list");
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            RaisedButton(
-              child: Text("grid"),
-              onPressed: () {
-                Navigator.of(context).pushNamed("grid");
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            RaisedButton(
-              child: Text("anim"),
-              onPressed: () {
-                Navigator.of(context).pushNamed("anim");
-              },
-            )
+            _buildItem(context, routePage, "翻页效果", WeatherType.thunder),
+            _buildItem(context, routeGrid, "宫格效果", WeatherType.sunnyNight),
+            _buildItem(context, routeList, "列表效果", WeatherType.lightSnow),
+            _buildItem(context, routeAnim, "切换效果", WeatherType.sunny),
           ],
         ),
       ),

@@ -64,12 +64,14 @@ class GridItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     weatherPrint("grid item size: ${MediaQuery.of(context).size}");
+    var radius = 20.0 - 2 * count;
+    var margin =  10.0 - count;
     return Card(
       elevation: 6,
-      margin: EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      margin: EdgeInsets.all(margin),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
       child: ClipPath(
-        clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+        clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius))),
         child: Stack(
           children: [
             WeatherBg(

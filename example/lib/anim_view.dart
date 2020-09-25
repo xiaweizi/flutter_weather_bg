@@ -17,9 +17,38 @@ class _AnimViewWidgetState extends State<AnimViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var radius = 5 + (_width - 100) / 200 * 10;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("AnimView"),
+        actions: [
+          PopupMenuButton<WeatherType>(
+            itemBuilder: (context) {
+              return <PopupMenuEntry<WeatherType>>[
+                ...WeatherType.values
+                    .map((e) => PopupMenuItem<WeatherType>(
+                  value: e,
+                  child: Text("${WeatherUtil.getWeatherDesc(e)}"),
+                ))
+                    .toList(),
+              ];
+            },
+            initialValue: _weatherType,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("${WeatherUtil.getWeatherDesc(_weatherType)}"),
+                Icon(Icons.more_vert)
+              ],
+            ),
+            onSelected: (count) {
+              setState(() {
+                _weatherType = count;
+              });
+            },
+          ),
+        ],
       ),
       body: Container(
         child: Column(
@@ -29,11 +58,11 @@ class _AnimViewWidgetState extends State<AnimViewWidget> {
               elevation: 7,
               margin: EdgeInsets.only(top: 15),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
+                  borderRadius: BorderRadius.circular(radius)),
               child: ClipPath(
                 clipper: ShapeBorderClipper(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15))),
+                        borderRadius: BorderRadius.circular(radius))),
                 child: Container(
                   child: WeatherBg(
                     weatherType: _weatherType,
@@ -46,31 +75,7 @@ class _AnimViewWidgetState extends State<AnimViewWidget> {
             SizedBox(
               height: 20,
             ),
-            PopupMenuButton<WeatherType>(
-              itemBuilder: (context) {
-                return <PopupMenuEntry<WeatherType>>[
-                  ...WeatherType.values
-                      .map((e) => PopupMenuItem<WeatherType>(
-                            value: e,
-                            child: Text("${WeatherUtil.getWeatherDesc(e)}"),
-                          ))
-                      .toList(),
-                ];
-              },
-              initialValue: _weatherType,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("${WeatherUtil.getWeatherDesc(_weatherType)}"),
-                  Icon(Icons.more_vert)
-                ],
-              ),
-              onSelected: (count) {
-                setState(() {
-                  _weatherType = count;
-                });
-              },
-            ),
+
             SizedBox(
               height: 20,
             ),
