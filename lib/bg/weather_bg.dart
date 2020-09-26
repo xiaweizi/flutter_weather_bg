@@ -115,6 +115,8 @@ class WeatherItemBg extends StatelessWidget {
     if (WeatherUtil.isSnowRain(weatherType)) {
       return WeatherRainSnowBg(
         weatherType: weatherType,
+        viewWidth: width,
+        viewHeight: height,
       );
     }
     return Container();

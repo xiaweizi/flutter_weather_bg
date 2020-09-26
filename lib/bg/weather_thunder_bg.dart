@@ -237,7 +237,7 @@ class ThunderPainter extends CustomPainter {
       0,
     ]);
     _paint.colorFilter = identity;
-    canvas.scale(params.widthRatio);
+    canvas.scale(params.widthRatio * 1.2);
     canvas.drawImage(params.image, Offset(params.x, params.y), _paint);
     canvas.restore();
   }
