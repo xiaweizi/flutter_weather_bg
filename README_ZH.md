@@ -1,6 +1,6 @@
 # flutter_weather_bg
 
-![Pub Version](https://img.shields.io/pub/v/flutter_weather_bg?style=plastic)
+[![Pub Version](https://img.shields.io/pub/v/flutter_weather_bg?style=plastic)](https://pub.flutter-io.cn/packages/flutter_weather_bg)
 
 一款丰富炫酷的天气动态背景插件，支持 **15** 种天气类型。
 
@@ -37,35 +37,33 @@ WeatherBg(weatherType: _weatherType,width: _width,height: _height,)
 
 ## 截图效果
 
-常规的 `PageView` 展示效果
+全屏沉浸式翻页效果
 
-![image1](/ScreenShot/image1.gif)
-
-
-
-列表 `ListView` 展示效果
-
-![image2](/ScreenShot/image2.gif)
+![home](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/92cbc9dbbd19419793ffec0e9f04457b~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 
-宫格 `GridView` 展示效果，并支持动态切换宫格列数
+城市管理列表效果
 
-![image3](/ScreenShot/image3.gif)
-
-
-
-动态缩小例子师范
-
-![image4](/ScreenShot/image4.gif)
+![list](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e6076f6ca3af4d3a8778313006ab9663~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 
-切换天气类型过度动画
+多样的宫格效果
 
-![image5](/ScreenShot/image5.gif)
+![list](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2e396e151764a7e8f86e798282833b9~tplv-k3u1fbpfcp-zoom-1.image)
 
 
+
+切换天气类型时的过度动画效果
+
+![check](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5c4e75165cbb4a87b8176baa636c432d~tplv-k3u1fbpfcp-zoom-1.image)
+
+
+
+修改宽高的适配效果
+
+![width_height](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c8a4002423db4b77b0d2374f6da1c055~tplv-k3u1fbpfcp-zoom-1.image)
 
 ## License 
 

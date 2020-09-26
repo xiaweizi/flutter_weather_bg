@@ -1,8 +1,8 @@
 # flutter_weather_bg
 
-![Pub Version](https://img.shields.io/pub/v/flutter_weather_bg?style=plastic)
+[![Pub Version](https://img.shields.io/pub/v/flutter_weather_bg?style=plastic)](https://pub.flutter-io.cn/packages/flutter_weather_bg)
 
-A rich and cool weather dynamic background plug-in, supporting 15 weather types. [README_ZH](/README_ZH.md)
+A rich and cool weather dynamic background plug-in, supporting 15 weather types. [README_ZH](https://github.com/xiaweizi/flutter_weather_bg/blob/master/README_ZH.md)
 
 > Use this plug-in to complete the weather background animation effect in your own project [SimplicityWeather](https://github.com/xiaweizi/SimplicityWeather).
 
@@ -21,7 +21,7 @@ A rich and cool weather dynamic background plug-in, supporting 15 weather types.
 
 ## Installation
 
-Add  `flutter_weather_bg: ^2.7.0` to your `pubspec.yaml` dependencies. And import it:
+Add  `flutter_weather_bg: ^2.8.0` to your `pubspec.yaml` dependencies. And import it:
 
 ```dar
 import 'package:flutter_weather_bg/flutter_weather_bg.dart';
@@ -39,31 +39,31 @@ WeatherBg(weatherType: _weatherType,width: _width,height: _height,)
 
 Regular `pageview` display effect
 
-![image1](/ScreenShot/image1.gif)
+![home](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/92cbc9dbbd19419793ffec0e9f04457b~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 
 List `listview` display effect
 
-![image2](/ScreenShot/image2.gif)
+![list](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e6076f6ca3af4d3a8778313006ab9663~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 
 The grid` GridView`displays the effect and supports the dynamic switching of the grid number
 
-![image3](/ScreenShot/image3.gif)
+![list](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2e396e151764a7e8f86e798282833b9~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 
 Dynamic reduction example demonstration
 
-![image4](/ScreenShot/image4.gif)
+![width_height](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c8a4002423db4b77b0d2374f6da1c055~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 
 Toggle weather type transition animation
 
-![image5](/ScreenShot/image5.gif)
+![check](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5c4e75165cbb4a87b8176baa636c432d~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 

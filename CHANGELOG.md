@@ -1,3 +1,9 @@
+## 2.8.0
+
+- Optimize the distance effect of raindrops
+- Optimize the display effect under different width and height
+- Optimize rendering logic
+
 ## 2.7.0
 
 - Beautify the home page entrance display UI
