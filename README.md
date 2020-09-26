@@ -51,8 +51,7 @@ List `listview` display effect
 
 The grid` GridView`displays the effect and supports the dynamic switching of the grid number
 
-![list](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2e396e151764a7e8f86e798282833b9~tplv-k3u1fbpfcp-zoom-1.image)
-
+![check](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5c4e75165cbb4a87b8176baa636c432d~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 Dynamic reduction example demonstration
