@@ -4,7 +4,9 @@
 
 一款丰富炫酷的天气动态背景插件，支持 **15** 种天气类型。
 
-> 在自己做的项目 [简悦天气](https://github.com/xiaweizi/SimplicityWeather) 中使用此插件完成天气背景动画效果。
+**在自己做的项目 [简悦天气](https://github.com/xiaweizi/SimplicityWeather) 中使用此插件完成天气背景动画效果。**
+
+**如果想体验请点击[下载链接](http://xiaweizi.top/SimplicityWeather-2_6.apk)下载**
 
 ## 功能
 
@@ -49,7 +51,7 @@ WeatherBg(weatherType: _weatherType,width: _width,height: _height,)
 
 多样的宫格效果
 
-![check](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5c4e75165cbb4a87b8176baa636c432d~tplv-k3u1fbpfcp-zoom-1.image)
+![grid](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2e396e151764a7e8f86e798282833b9~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 切换天气类型时的过度动画效果

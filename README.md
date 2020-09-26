@@ -4,7 +4,8 @@
 
 A rich and cool weather dynamic background plug-in, supporting 15 weather types. [README_ZH](https://github.com/xiaweizi/flutter_weather_bg/blob/master/README_ZH.md)
 
-> Use this plug-in to complete the weather background animation effect in your own project [SimplicityWeather](https://github.com/xiaweizi/SimplicityWeather).
+**Use this plug-in to complete the weather background animation effect in my own project  [SimplicityWeather](https://github.com/xiaweizi/SimplicityWeather) .**
+**If you want to experience it, please [click the download link](http://xiaweizi.top/SimplicityWeather-2_6.apk) to download it**
 
 ## Features 
 
@@ -51,7 +52,7 @@ List `listview` display effect
 
 The grid` GridView`displays the effect and supports the dynamic switching of the grid number
 
-![check](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5c4e75165cbb4a87b8176baa636c432d~tplv-k3u1fbpfcp-zoom-1.image)
+![check](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2e396e151764a7e8f86e798282833b9~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 Dynamic reduction example demonstration
