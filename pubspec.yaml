@@ -1,6 +1,6 @@
 name: flutter_weather_bg
 description: Provide a variety of weather background animation effects, covering 15 weather types, including sunny,rain,snow...
-version: 2.8.1
+version: 2.8.2
 homepage: https://github.com/xiaweizi/flutter_weather_bg
 
 environment:
