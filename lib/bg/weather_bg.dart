@@ -13,10 +13,15 @@ class WeatherBg extends StatefulWidget {
   final WeatherType weatherType;
   final double width;
   final double height;
+  final Widget background;
 
-  WeatherBg(
-      {Key key, this.weatherType, @required this.width, @required this.height})
-      : super(key: key);
+  WeatherBg({
+    Key key,
+    this.weatherType,
+    @required this.width,
+    @required this.height,
+    this.background,
+  }) : super(key: key);
 
   @override
   _WeatherBgState createState() => _WeatherBgState();
@@ -46,12 +51,14 @@ class _WeatherBgState extends State<WeatherBg>
         weatherType: _oldWeatherType,
         width: widget.width,
         height: widget.height,
+        background: widget.background,
       );
     }
     var currentBgWidget = WeatherItemBg(
       weatherType: widget.weatherType,
       width: widget.width,
       height: widget.height,
+      background: widget.background,
     );
     if (oldBgWidget == null) {
       oldBgWidget = currentBgWidget;
@@ -86,41 +93,15 @@ class WeatherItemBg extends StatelessWidget {
   final WeatherType weatherType;
   final width;
   final height;
+  final Widget background;
 
-  WeatherItemBg({Key key, this.weatherType, this.width, this.height})
-      : super(key: key);
-
-  /// 构建晴晚背景效果
-  Widget _buildNightStarBg() {
-    if (weatherType == WeatherType.sunnyNight) {
-      return WeatherNightStarBg(
-        weatherType: weatherType,
-      );
-    }
-    return Container();
-  }
-
-  /// 构建雷暴效果
-  Widget _buildThunderBg() {
-    if (weatherType == WeatherType.thunder) {
-      return WeatherThunderBg(
-        weatherType: weatherType,
-      );
-    }
-    return Container();
-  }
-
-  /// 构建雨雪背景效果
-  Widget _buildRainSnowBg() {
-    if (WeatherUtil.isSnowRain(weatherType)) {
-      return WeatherRainSnowBg(
-        weatherType: weatherType,
-        viewWidth: width,
-        viewHeight: height,
-      );
-    }
-    return Container();
-  }
+  WeatherItemBg({
+    Key key,
+    this.weatherType,
+    this.width,
+    this.height,
+    this.background,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -130,13 +111,19 @@ class WeatherItemBg extends StatelessWidget {
       child: ClipRect(
         child: Stack(
           children: [
-            WeatherColorBg(weatherType: weatherType),
-            WeatherCloudBg(
-              weatherType: weatherType,
-            ),
-            _buildRainSnowBg(),
-            _buildThunderBg(),
-            _buildNightStarBg(),
+            background ?? WeatherColorBg(weatherType: weatherType),
+            WeatherCloudBg(weatherType: weatherType),
+            if (WeatherUtil.isSnowRain(weatherType))
+              WeatherRainSnowBg(
+                weatherType: weatherType,
+                viewWidth: width,
+                viewHeight: height,
+              ),
+            if (weatherType == WeatherType.thunder)
+              WeatherThunderBg(weatherType: weatherType),
+            // 构建晴晚背景效果
+            if (weatherType == WeatherType.sunnyNight)
+              WeatherNightStarBg(weatherType: weatherType),
           ],
         ),
       ),
