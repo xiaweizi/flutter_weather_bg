@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_weather_bg/bg/weather_bg.dart';
 import 'dart:ui' as ui;
 
+import 'package:flutter/material.dart';
+import 'package:flutter_weather_bg/bg/weather_bg.dart';
 import 'package:flutter_weather_bg/utils/image_utils.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
 import 'package:flutter_weather_bg/utils/weather_type.dart';
@@ -129,7 +129,7 @@ class BgPainter extends CustomPainter {
     canvas.restore();
 
     canvas.save();
-    final scale = 0.6 * widthRatio;
+    final scale = 0.3 * widthRatio;
     ui.Offset offset1 = ui.Offset(-100, -100);
     canvas.scale(scale);
     canvas.drawImage(image, offset1, _paint);
@@ -162,7 +162,7 @@ class BgPainter extends CustomPainter {
       0,
     ]);
     _paint.colorFilter = identity;
-    final scale = 0.8 * widthRatio;
+    final scale = 0.3 * widthRatio;
     ui.Offset offset1 = ui.Offset(0, -200);
     ui.Offset offset2 = ui.Offset(-image.width / 2, -130);
     ui.Offset offset3 = ui.Offset(100, 0);
@@ -200,7 +200,7 @@ class BgPainter extends CustomPainter {
       0,
     ]);
     _paint.colorFilter = identity;
-    final scale = 0.8 * widthRatio;
+    final scale = 0.3 * widthRatio;
     ui.Offset offset1 = ui.Offset(0, -200);
     ui.Offset offset2 = ui.Offset(-image.width / 2, -130);
     ui.Offset offset3 = ui.Offset(100, 0);
@@ -238,7 +238,7 @@ class BgPainter extends CustomPainter {
       0,
     ]);
     _paint.colorFilter = identity;
-    final scale = 0.8 * widthRatio;
+    final scale = 0.3 * widthRatio;
     ui.Offset offset1 = ui.Offset(0, -200);
     ui.Offset offset2 = ui.Offset(-image.width / 2, -130);
     ui.Offset offset3 = ui.Offset(100, 0);
