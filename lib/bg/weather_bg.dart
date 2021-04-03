@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg/bg/weather_cloud_bg.dart';
 import 'package:flutter_weather_bg/bg/weather_color_bg.dart';
+import 'package:flutter_weather_bg/bg/weather_night_star_bg.dart';
 import 'package:flutter_weather_bg/bg/weather_rain_snow_bg.dart';
 import 'package:flutter_weather_bg/bg/weather_thunder_bg.dart';
 import 'package:flutter_weather_bg/utils/weather_type.dart';
@@ -121,8 +122,8 @@ class WeatherItemBg extends StatelessWidget {
             if (weatherType == WeatherType.thunder)
               WeatherThunderBg(weatherType: weatherType),
             // 构建晴晚背景效果
-            // if (weatherType == WeatherType.sunnyNight)
-            //   WeatherNightStarBg(weatherType: weatherType),
+            if (weatherType == WeatherType.sunnyNight)
+              WeatherNightStarBg(weatherType: weatherType),
           ],
         ),
       ),
