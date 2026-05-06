@@ -1,3 +1,14 @@
+## 2.9.0
+
+- 迁移到 Flutter 3.x / Dart 3 空安全（最低 Flutter `>=3.0.0`、Dart `>=3.0.0 <4.0.0`）
+- 弃用 `@required`，全部构造器改为 `required` + `super.key`
+- 给长期持有的 State 字段加上 `late` / nullable 声明，删掉冗余的 null 判断
+- 异步 `setState` 回调前加 `mounted` 判断，避免已销毁组件继续刷新
+- 修正 `WeatherPrint` typedef 签名（`wrapWidth` / `tag` 变为 nullable）
+- 重建 `example/` 的原生外壳（AGP 8 / Gradle 8、Kotlin DSL，iOS 新模板，新增 Web 支持）
+- 升级 `flutter_lints` 至 `^5.0.0`；`example` 默认启用 Material 3
+- 修正 MIT LICENSE 的版权归属
+
 ## 2.8.0
 
 - 优化雨滴的远近效果

@@ -1,3 +1,14 @@
+## 2.9.0
+
+- Migrate to Flutter 3.x / Dart 3 null-safety (min SDK: Flutter `>=3.0.0`, Dart `>=3.0.0 <4.0.0`)
+- Replace deprecated `@required` with the `required` keyword and adopt `super.key` in all constructors
+- Annotate long-lived state fields with `late` / nullable types; drop redundant null-check branches
+- Add `mounted` guards around async `setState` callbacks to avoid "setState() called after dispose"
+- Fix `WeatherPrint` typedef signature (`wrapWidth`/`tag` now nullable)
+- Rebuild `example/` native shells (AGP 8 / Gradle 8, Kotlin DSL, new iOS template, Web platform added)
+- Bump `flutter_lints` to `^5.0.0`; `example` uses Material 3 by default
+- Fix MIT LICENSE copyright holder
+
 ## 2.8.0
 
 - Optimize the distance effect of raindrops
