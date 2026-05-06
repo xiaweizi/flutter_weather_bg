@@ -6,10 +6,11 @@ import 'package:flutter_weather_bg/bg/weather_rain_snow_bg.dart';
 import 'package:flutter_weather_bg/bg/weather_thunder_bg.dart';
 import 'package:flutter_weather_bg/utils/weather_type.dart';
 
-/// 最核心的类，集合背景&雷&雨雪&晴晚&流星效果
-/// 1. 支持动态切换大小
-/// 2. 支持渐变过度
-class WeatherBg extends StatefulWidget {
+/// 最核心的入口 widget —— 组合背景 / 云 / 雷 / 雨雪 / 晴晚星空五层画面。
+///
+/// - 通过 [weatherType] 切换场景；两次切换之间会有 300ms 淡入淡出过渡。
+/// - 通过 [width] / [height] 指定画布尺寸；尺寸变化会重新触发粒子系统初始化。
+class WeatherBg extends StatelessWidget {
   final WeatherType weatherType;
   final double width;
   final double height;
@@ -22,67 +23,26 @@ class WeatherBg extends StatefulWidget {
   });
 
   @override
-  State<WeatherBg> createState() => _WeatherBgState();
-}
-
-class _WeatherBgState extends State<WeatherBg>
-    with SingleTickerProviderStateMixin {
-  WeatherType? _oldWeatherType;
-  bool needChange = false;
-  var state = CrossFadeState.showSecond;
-
-  @override
-  void didUpdateWidget(WeatherBg oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.weatherType != oldWidget.weatherType) {
-      // 如果类别发生改变，需要 start 渐变动画
-      _oldWeatherType = oldWidget.weatherType;
-      needChange = true;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    Widget? oldBgWidget;
-    if (_oldWeatherType != null) {
-      oldBgWidget = WeatherItemBg(
-        weatherType: _oldWeatherType!,
-        width: widget.width,
-        height: widget.height,
-      );
-    }
-    final currentBgWidget = WeatherItemBg(
-      weatherType: widget.weatherType,
-      width: widget.width,
-      height: widget.height,
-    );
-    oldBgWidget ??= currentBgWidget;
-    Widget firstWidget = currentBgWidget;
-    Widget secondWidget = currentBgWidget;
-    if (needChange) {
-      if (state == CrossFadeState.showSecond) {
-        state = CrossFadeState.showFirst;
-        firstWidget = currentBgWidget;
-        secondWidget = oldBgWidget;
-      } else {
-        state = CrossFadeState.showSecond;
-        secondWidget = currentBgWidget;
-        firstWidget = oldBgWidget;
-      }
-    }
-    needChange = false;
     return SizeInherited(
-      size: Size(widget.width, widget.height),
-      child: AnimatedCrossFade(
-        firstChild: firstWidget,
-        secondChild: secondWidget,
+      size: Size(width, height),
+      child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
-        crossFadeState: state,
+        child: WeatherItemBg(
+          // 让 AnimatedSwitcher 在类型变化时认为是不同 child
+          key: ValueKey(weatherType),
+          weatherType: weatherType,
+          width: width,
+          height: height,
+        ),
       ),
     );
   }
 }
 
+/// 单个天气场景，由多层 widget 叠加组成：颜色背景 + 云 + 雨雪 + 雷 + 晴晚。
+///
+/// 这个类是内部实现（通过 `hide` 从 barrel 导出中排除）。
 class WeatherItemBg extends StatelessWidget {
   final WeatherType weatherType;
   final double width;
@@ -95,38 +55,6 @@ class WeatherItemBg extends StatelessWidget {
     required this.height,
   });
 
-  /// 构建晴晚背景效果
-  Widget _buildNightStarBg() {
-    if (weatherType == WeatherType.sunnyNight) {
-      return WeatherNightStarBg(
-        weatherType: weatherType,
-      );
-    }
-    return Container();
-  }
-
-  /// 构建雷暴效果
-  Widget _buildThunderBg() {
-    if (weatherType == WeatherType.thunder) {
-      return WeatherThunderBg(
-        weatherType: weatherType,
-      );
-    }
-    return Container();
-  }
-
-  /// 构建雨雪背景效果
-  Widget _buildRainSnowBg() {
-    if (WeatherUtil.isSnowRain(weatherType)) {
-      return WeatherRainSnowBg(
-        weatherType: weatherType,
-        viewWidth: width,
-        viewHeight: height,
-      );
-    }
-    return Container();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -136,12 +64,17 @@ class WeatherItemBg extends StatelessWidget {
         child: Stack(
           children: [
             WeatherColorBg(weatherType: weatherType),
-            WeatherCloudBg(
-              weatherType: weatherType,
-            ),
-            _buildRainSnowBg(),
-            _buildThunderBg(),
-            _buildNightStarBg(),
+            WeatherCloudBg(weatherType: weatherType),
+            if (WeatherUtil.isSnowRain(weatherType))
+              WeatherRainSnowBg(
+                weatherType: weatherType,
+                viewWidth: width,
+                viewHeight: height,
+              ),
+            if (weatherType == WeatherType.thunder)
+              WeatherThunderBg(weatherType: weatherType),
+            if (weatherType == WeatherType.sunnyNight)
+              WeatherNightStarBg(weatherType: weatherType),
           ],
         ),
       ),
@@ -149,6 +82,7 @@ class WeatherItemBg extends StatelessWidget {
   }
 }
 
+/// 用 InheritedWidget 把画布尺寸传给下面的绘制层（云 / 雨雪 / 雷 / 星空）。
 class SizeInherited extends InheritedWidget {
   final Size size;
 
@@ -163,7 +97,5 @@ class SizeInherited extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(SizeInherited old) {
-    return old.size != size;
-  }
+  bool updateShouldNotify(SizeInherited old) => old.size != size;
 }

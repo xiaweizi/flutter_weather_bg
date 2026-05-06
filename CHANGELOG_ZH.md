@@ -1,3 +1,17 @@
+## 3.1.0
+
+性能优化 + 内部重构，非破坏性。公开 API 未变，只用到 `WeatherBg` 的代码无需改动即可升级。
+
+- **性能**：雨雪 / 雷电 / 晴晚三个动画层改用 `CustomPainter` 的 `repaint:` 机制驱动重绘，不再每帧 `setState` 重建整棵子树。雨雪等粒子场景 CPU 占用显著下降。
+- **性能**：粒子 alpha 动画不再每帧构建 `ColorFilter.matrix([20 个 double])`，改用 `ColorFilter.mode(..., modulate)`；200+ 粒子时 GC 压力大幅降低。
+- **性能**：雷电参数对象改为复用，不再每 3 秒循环重新分配。
+- **重构**：`BgPainter` 原本 12 个模板化的 `drawXxx` 方法（共 330 行），改成数据驱动的 `_CloudLayer` 规格表。新增一种天气只要加一条 map entry，不必再写新方法。
+- **重构**：`WeatherBg` 手写的 `AnimatedCrossFade` state swap 逻辑替换成 `AnimatedSwitcher` + `ValueKey(weatherType)`，去掉 40 行样板代码，淡入淡出效果保持 300ms 不变。
+- **清理**：`ui.Image` 实例在 `State.dispose` 时正确释放（Flutter 3.1+ API）。
+- **清理**：删除一条遗留的死代码 `CurvedAnimation(...)`（会泄漏一个 listener）。
+- **清理**：粒子系统内的 `Random()` 调用改为共享一个顶层实例。
+- **清理**：硬编码的设计基准尺寸（392、817）抽成 `utils/constants.dart` 常量。
+
 ## 3.0.0
 
 **破坏性更新：** 本版本启用 sound null-safety，2.8.2 尚未启用。

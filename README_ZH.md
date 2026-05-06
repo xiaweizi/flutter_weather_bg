@@ -39,7 +39,7 @@
 
 ```yaml
 dependencies:
-  flutter_weather_bg: ^3.0.0
+  flutter_weather_bg: ^3.1.0
 ```
 
 然后执行：

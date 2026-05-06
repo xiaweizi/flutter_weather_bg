@@ -1,3 +1,17 @@
+## 3.1.0
+
+Non-breaking performance & refactor release. Public API is unchanged; user code that depends only on `WeatherBg` keeps working.
+
+- **Perf**: animation layers (rain/snow, thunder, night-star) now drive their `CustomPainter` via `repaint:` listenable instead of `setState` every frame — no more whole-subtree rebuilds 60 times per second. Significant CPU drop for rain/snow heavy scenes.
+- **Perf**: per-frame `ColorFilter.matrix([...20 doubles])` allocations replaced with `ColorFilter.mode(..., modulate)` for simple alpha modulation (rain, snow, thunder, stars). Far less GC pressure with 200+ particles.
+- **Perf**: thunder particle objects are now reused instead of reallocated every 3-second loop.
+- **Refactor**: `BgPainter` was 12 near-identical `drawXxx` methods (~330 lines). Replaced with a data-driven `_CloudLayer` spec map — adding a new weather variant now takes one map entry, not a new method.
+- **Refactor**: `WeatherBg` replaced the hand-rolled `AnimatedCrossFade` state swap with `AnimatedSwitcher` + `ValueKey(weatherType)`. Removed 40 lines of state-tracking code; same 300ms fade.
+- **Cleanup**: `ui.Image` instances are now disposed in `State.dispose` (Flutter 3.1+ API).
+- **Cleanup**: removed a dead `CurvedAnimation(...)` expression in the rain/snow layer that was leaking a listener.
+- **Cleanup**: `Random()` calls inside particle systems now share a single top-level instance.
+- **Cleanup**: hardcoded design-size constants (392, 817) extracted into `utils/constants.dart`.
+
 ## 3.0.0
 
 **Breaking:** This release opts into sound null-safety; 2.8.2 did not.
