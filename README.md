@@ -35,7 +35,7 @@ A rich and cool weather dynamic background plug-in, supporting 15 weather types.
 
 ## Installation
 
-Add the dependency to your `pubspec.yaml`:
+Available on [pub.dev](https://pub.dev/packages/flutter_weather_bg). Add the dependency to your `pubspec.yaml`:
 
 ```yaml
 dependencies:

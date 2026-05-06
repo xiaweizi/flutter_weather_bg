@@ -35,7 +35,7 @@
 
 ## 安装
 
-在 `pubspec.yaml` 中添加依赖：
+已发布到 [pub.dev](https://pub.dev/packages/flutter_weather_bg)。在 `pubspec.yaml` 中添加依赖：
 
 ```yaml
 dependencies:
