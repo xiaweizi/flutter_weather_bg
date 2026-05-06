@@ -14,17 +14,20 @@ class WeatherBg extends StatefulWidget {
   final double width;
   final double height;
 
-  WeatherBg(
-      {Key key, this.weatherType, @required this.width, @required this.height})
-      : super(key: key);
+  const WeatherBg({
+    super.key,
+    required this.weatherType,
+    required this.width,
+    required this.height,
+  });
 
   @override
-  _WeatherBgState createState() => _WeatherBgState();
+  State<WeatherBg> createState() => _WeatherBgState();
 }
 
 class _WeatherBgState extends State<WeatherBg>
     with SingleTickerProviderStateMixin {
-  WeatherType _oldWeatherType;
+  WeatherType? _oldWeatherType;
   bool needChange = false;
   var state = CrossFadeState.showSecond;
 
@@ -40,24 +43,22 @@ class _WeatherBgState extends State<WeatherBg>
 
   @override
   Widget build(BuildContext context) {
-    var oldBgWidget;
+    Widget? oldBgWidget;
     if (_oldWeatherType != null) {
       oldBgWidget = WeatherItemBg(
-        weatherType: _oldWeatherType,
+        weatherType: _oldWeatherType!,
         width: widget.width,
         height: widget.height,
       );
     }
-    var currentBgWidget = WeatherItemBg(
+    final currentBgWidget = WeatherItemBg(
       weatherType: widget.weatherType,
       width: widget.width,
       height: widget.height,
     );
-    if (oldBgWidget == null) {
-      oldBgWidget = currentBgWidget;
-    }
-    var firstWidget = currentBgWidget;
-    var secondWidget = currentBgWidget;
+    oldBgWidget ??= currentBgWidget;
+    Widget firstWidget = currentBgWidget;
+    Widget secondWidget = currentBgWidget;
     if (needChange) {
       if (state == CrossFadeState.showSecond) {
         state = CrossFadeState.showFirst;
@@ -71,24 +72,28 @@ class _WeatherBgState extends State<WeatherBg>
     }
     needChange = false;
     return SizeInherited(
+      size: Size(widget.width, widget.height),
       child: AnimatedCrossFade(
         firstChild: firstWidget,
         secondChild: secondWidget,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         crossFadeState: state,
       ),
-      size: Size(widget.width, widget.height),
     );
   }
 }
 
 class WeatherItemBg extends StatelessWidget {
   final WeatherType weatherType;
-  final width;
-  final height;
+  final double width;
+  final double height;
 
-  WeatherItemBg({Key key, this.weatherType, this.width, this.height})
-      : super(key: key);
+  const WeatherItemBg({
+    super.key,
+    required this.weatherType,
+    required this.width,
+    required this.height,
+  });
 
   /// 构建晴晚背景效果
   Widget _buildNightStarBg() {
@@ -124,7 +129,7 @@ class WeatherItemBg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
       child: ClipRect(
@@ -148,13 +153,12 @@ class SizeInherited extends InheritedWidget {
   final Size size;
 
   const SizeInherited({
-    Key key,
-    @required Widget child,
-    @required this.size,
-  })  : assert(child != null),
-        super(key: key, child: child);
+    super.key,
+    required super.child,
+    required this.size,
+  });
 
-  static SizeInherited of(BuildContext context) {
+  static SizeInherited? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<SizeInherited>();
   }
 

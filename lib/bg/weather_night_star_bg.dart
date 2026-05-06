@@ -1,58 +1,58 @@
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg/bg/weather_bg.dart';
-import 'package:flutter_weather_bg/flutter_weather_bg.dart';
 import 'package:flutter_weather_bg/utils/print_utils.dart';
-import 'dart:ui' as ui;
-
 import 'package:flutter_weather_bg/utils/weather_type.dart';
 
 //// 晴晚&流星层
 class WeatherNightStarBg extends StatefulWidget {
   final WeatherType weatherType;
 
-  WeatherNightStarBg({Key key, this.weatherType}) : super(key: key);
+  const WeatherNightStarBg({super.key, required this.weatherType});
 
   @override
-  _WeatherNightStarBgState createState() => _WeatherNightStarBgState();
+  State<WeatherNightStarBg> createState() => _WeatherNightStarBgState();
 }
 
 class _WeatherNightStarBgState extends State<WeatherNightStarBg>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  List<_StarParam> _starParams = [];
-  List<_MeteorParam> _meteorParams = [];
+  late AnimationController _controller;
+  final List<_StarParam> _starParams = [];
+  final List<_MeteorParam> _meteorParams = [];
   WeatherDataState _state = WeatherDataState.init;
-  double width;
-  double height;
-  double widthRatio;
+  double width = 0;
+  double height = 0;
+  double widthRatio = 1;
 
   /// 准备星星的参数信息
-  void fetchData() async {
-    Size size = SizeInherited.of(context).size;
+  void fetchData() {
+    final size = SizeInherited.of(context)!.size;
     width = size.width;
     height = size.height;
     widthRatio = width / 392.0;
     weatherPrint("开始准备星星参数");
     _state = WeatherDataState.loading;
     initStarParams();
-    setState(() {
-      _controller.repeat();
-    });
+    if (mounted) {
+      setState(() {
+        _controller.repeat();
+      });
+    }
     _state = WeatherDataState.finish;
   }
 
   /// 初始化星星参数
   void initStarParams() {
     for (int i = 0; i < 100; i++) {
-      var index = Random().nextInt(2);
-      _StarParam _starParam = _StarParam(index);
-      _starParam.init(width, height, widthRatio);
-      _starParams.add(_starParam);
+      final index = Random().nextInt(2);
+      final _StarParam starParam = _StarParam(index);
+      starParam.init(width, height, widthRatio);
+      _starParams.add(starParam);
     }
     for (int i = 0; i < 4; i++) {
-      _MeteorParam param = _MeteorParam();
+      final _MeteorParam param = _MeteorParam();
       param.init(width, height, widthRatio);
       _meteorParams.add(param);
     }
@@ -60,13 +60,14 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
 
   @override
   void initState() {
+    super.initState();
+
     /// 初始化动画信息
     _controller =
-        AnimationController(duration: Duration(seconds: 5), vsync: this);
+        AnimationController(duration: const Duration(seconds: 5), vsync: this);
     _controller.addListener(() {
-      setState(() {});
+      if (mounted) setState(() {});
     });
-    super.initState();
   }
 
   @override
@@ -76,8 +77,7 @@ class _WeatherNightStarBgState extends State<WeatherNightStarBg>
   }
 
   Widget _buildWidget() {
-    if (_starParams != null &&
-        _starParams.isNotEmpty &&
+    if (_starParams.isNotEmpty &&
         widget.weatherType == WeatherType.sunnyNight) {
       return CustomPaint(
         painter:
@@ -104,9 +104,9 @@ class _StarPainter extends CustomPainter {
   final _meteorPaint = Paint();
   final List<_StarParam> _starParams;
 
-  final width;
-  final height;
-  final widthRatio;
+  final double width;
+  final double height;
+  final double widthRatio;
 
   /// 配置星星数据信息
   final List<_MeteorParam> _meteorParams;
@@ -118,25 +118,25 @@ class _StarPainter extends CustomPainter {
   final double _meteorHeight = 2;
 
   /// 流星的高度
-  final Radius _radius = Radius.circular(10);
+  final Radius _radius = const Radius.circular(10);
 
   /// 流星的圆角半径
   _StarPainter(this._starParams, this._meteorParams, this.width, this.height,
       this.widthRatio) {
-    _paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 1);
+    _paint.maskFilter = const MaskFilter.blur(BlurStyle.normal, 1);
     _paint.color = Colors.white;
     _paint.style = PaintingStyle.fill;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (_starParams != null && _starParams.isNotEmpty) {
-      for (var param in _starParams) {
+    if (_starParams.isNotEmpty) {
+      for (final param in _starParams) {
         drawStar(param, canvas);
       }
     }
-    if (_meteorParams != null && _meteorParams.isNotEmpty) {
-      for (var param in _meteorParams) {
+    if (_meteorParams.isNotEmpty) {
+      for (final param in _meteorParams) {
         drawMeteor(param, canvas);
       }
     }
@@ -145,7 +145,7 @@ class _StarPainter extends CustomPainter {
   /// 绘制流星
   void drawMeteor(_MeteorParam param, Canvas canvas) {
     canvas.save();
-    var gradient = ui.Gradient.linear(
+    final gradient = ui.Gradient.linear(
       const Offset(0, 0),
       Offset(_meteorWidth, 0),
       <Color>[const Color(0xFFFFFFFF), const Color(0x00FFFFFF)],
@@ -168,31 +168,12 @@ class _StarPainter extends CustomPainter {
 
   /// 绘制星星
   void drawStar(_StarParam param, Canvas canvas) {
-    if (param == null) {
-      return;
-    }
     canvas.save();
-    var identity = ColorFilter.matrix(<double>[
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      param.alpha,
-      0,
+    final identity = ColorFilter.matrix(<double>[
+      1, 0, 0, 0, 0, //
+      0, 1, 0, 0, 0, //
+      0, 0, 1, 0, 0, //
+      0, 0, 0, param.alpha, 0, //
     ]);
     _paint.colorFilter = identity;
     canvas.scale(param.scale);
@@ -208,14 +189,16 @@ class _StarPainter extends CustomPainter {
 }
 
 class _MeteorParam {
-  double translateX;
-  double translateY;
-  double radians;
+  double translateX = 0;
+  double translateY = 0;
+  double radians = 0;
 
-  double width, height, widthRatio;
+  double width = 0;
+  double height = 0;
+  double widthRatio = 1;
 
   /// 初始化数据
-  void init(width, height, widthRatio) {
+  void init(double width, double height, double widthRatio) {
     this.width = width;
     this.height = height;
     this.widthRatio = widthRatio;
@@ -240,16 +223,16 @@ class _MeteorParam {
 
 class _StarParam {
   /// x 坐标
-  double x;
+  double x = 0;
 
   /// y 坐标
-  double y;
+  double y = 0;
 
   /// 透明度值，默认为 0
   double alpha = 0.0;
 
   /// 缩放
-  double scale;
+  double scale = 1;
 
   /// 是否反向动画
   bool reverse = false;
@@ -257,17 +240,17 @@ class _StarParam {
   /// 当前下标值
   int index;
 
-  double width;
+  double width = 0;
 
-  double height;
+  double height = 0;
 
-  double widthRatio;
+  double widthRatio = 1;
 
   _StarParam(this.index);
 
   void reset() {
     alpha = 0;
-    double baseScale = index == 0 ? 0.7 : 0.5;
+    final double baseScale = index == 0 ? 0.7 : 0.5;
     scale = (Random().nextDouble() * 0.1 + baseScale) * widthRatio;
     x = Random().nextDouble() * 1 * width / scale;
     y = Random().nextDouble() * max(0.3 * height, 150);
@@ -275,12 +258,12 @@ class _StarParam {
   }
 
   /// 用于初始参数
-  void init(width, height, widthRatio) {
+  void init(double width, double height, double widthRatio) {
     this.width = width;
     this.height = height;
     this.widthRatio = widthRatio;
     alpha = Random().nextDouble();
-    double baseScale = index == 0 ? 0.7 : 0.5;
+    final double baseScale = index == 0 ? 0.7 : 0.5;
     scale = (Random().nextDouble() * 0.1 + baseScale) * widthRatio;
     x = Random().nextDouble() * 1 * width / scale;
     y = Random().nextDouble() * max(0.3 * height, 150);

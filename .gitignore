@@ -1,10 +1,15 @@
 .DS_Store
 .dart_tool/
+.gradle/
 
 .packages
 .pub/
 
 build/
 .idea/
-android/
-ios/
+
+# Plugin 本身是纯 Dart，不应有根级原生目录；只忽略根级的，不影响 example/android 等
+/android/
+/ios/
+
+pubspec.lock
