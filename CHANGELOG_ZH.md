@@ -1,4 +1,7 @@
-## 2.9.0
+## 3.0.0
+
+**破坏性更新：** 本版本启用 sound null-safety，2.8.2 尚未启用。
+从 2.x 升级的用户需要相应调整调用处的空值处理（公共 API 未改名，仅类型在合适处变为 non-nullable）。
 
 - 迁移到 Flutter 3.x / Dart 3 空安全（最低 Flutter `>=3.0.0`、Dart `>=3.0.0 <4.0.0`）
 - 弃用 `@required`，全部构造器改为 `required` + `super.key`

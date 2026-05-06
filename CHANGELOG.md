@@ -1,4 +1,9 @@
-## 2.9.0
+## 3.0.0
+
+**Breaking:** This release opts into sound null-safety; 2.8.2 did not.
+Users upgrading from 2.x must migrate their call sites accordingly (nothing
+in the public API was renamed — only types are now non-nullable where
+appropriate).
 
 - Migrate to Flutter 3.x / Dart 3 null-safety (min SDK: Flutter `>=3.0.0`, Dart `>=3.0.0 <4.0.0`)
 - Replace deprecated `@required` with the `required` keyword and adopt `super.key` in all constructors
