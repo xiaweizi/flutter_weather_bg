@@ -1,6 +1,7 @@
 # flutter_weather_bg
 
 [![Pub Version](https://img.shields.io/pub/v/flutter_weather_bg?style=plastic)](https://pub.dev/packages/flutter_weather_bg)
+[![Pub Likes](https://img.shields.io/pub/likes/flutter_weather_bg?style=plastic)](https://pub.dev/packages/flutter_weather_bg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=plastic)](https://github.com/xiaweizi/flutter_weather_bg/blob/main/LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Web%20%7C%20macOS-blue.svg?style=plastic)](https://github.com/xiaweizi/flutter_weather_bg)
 
@@ -120,3 +121,7 @@ flutter run              # 或 flutter run -d chrome
 ## 开源协议
 
 基于 [MIT License](./LICENSE) 开源。Copyright © 2020-2026 xiaweizi。
+
+## Star 趋势
+
+[![Star History Chart](https://api.star-history.com/svg?repos=xiaweizi/flutter_weather_bg&type=Date)](https://star-history.com/#xiaweizi/flutter_weather_bg&Date)
